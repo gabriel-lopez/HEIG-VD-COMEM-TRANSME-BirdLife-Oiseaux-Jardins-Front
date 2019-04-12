@@ -27,3 +27,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+##Libraries
+* [vuex-persist](https://github.com/championswimmer/vuex-persist)
