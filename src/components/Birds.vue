@@ -2,37 +2,94 @@
   <div>
     <v-container>
 
-      <v-flex xs6>
-        <v-subheader>Selected Value: {{habitatsSelected}}</v-subheader>
-        <v-subheader>Selected Value: {{ordersSelected}}</v-subheader>
-        <v-subheader>Selected Value: {{familiesSelected}}</v-subheader>
-      </v-flex>
-
       <h2>Filtres</h2>
+
+      <v-btn @click.prevent="getBirds()" color="success">RELOAD</v-btn>
 
       <v-layout row>
 
         <v-flex xs12 sm6 lg4>
-          <v-select
-            multiple
-            chips
-            :items="orders"
-            label="Ordre"
-            item-text="name"
-            item-value="id"
-            v-model="ordersSelected"
-          ></v-select>
+          <v-checkbox
+            v-model="gardenCheckbox"
+            :label="`Garden: ${gardenCheckbox.toString()}`"
+            color="primary"
+
+            hint="What are the target regions"
+            persistent-hint
+          ></v-checkbox>
         </v-flex>
 
         <v-flex xs12 sm6 lg4>
           <v-select
             multiple
             chips
+            deletable-chips
+
+
+            :items="orders"
+
+            label="Ordre"
+
+            item-text="name"
+            item-value="id"
+            item-avatar='<img src="https://randomuser.me/api/portraits/men/35.jpg\"></img>'
+
+            v-model="ordersSelected"
+
+            hint="What are the target regions"
+            persistent-hint
+          >
+
+            <!--
+            <template slot="selection" slot-scope="data">
+              <v-flex xs2>
+                <v-avatar size="25px">
+                  <img :src="data.item.safe_avatar_url"/>
+                </v-avatar>
+              </v-flex>
+              <v-flex class='ml-1'>
+                {{ data.item.name }}
+              </v-flex>
+            </template>
+            -->
+<!--
+            <template slot="item" slot-scope="data">
+              <v-list-tile-avatar>
+                <img :src="data.item.safe_avatar_url" />
+              </v-list-tile-avatar>
+              <v-list-tile-content>
+                <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
+              </v-list-tile-content>
+            </template>
+-->
+
+            <template slot="item" slot-scope="data">
+            <v-checkbox
+              v-model="gardenCheckbox"
+              :label="`Garden: ${gardenCheckbox.toString()}`"
+              color="primary"
+
+              hint="What are the target regions"
+              persistent-hint
+            ></v-checkbox>
+            </template>
+
+          </v-select>
+        </v-flex>
+
+        <v-flex xs12 sm6 lg4>
+          <v-select
+            multiple
+            chips
+            deletable-chips
             :items="families"
             label="Famille"
             item-text="name"
             item-value="id"
             v-model="familiesSelected"
+
+            hint="What are the target regions"
+            persistent-hint
           ></v-select>
         </v-flex>
 
@@ -40,11 +97,15 @@
           <v-select
             multiple
             chips
+            deletable-chips
             :items="habitats"
             label="Habitat"
             item-text="name_de"
             item-value="id"
             v-model="habitatsSelected"
+
+            hint="What are the target regions"
+            persistent-hint
           ></v-select>
         </v-flex>
       </v-layout>
@@ -53,11 +114,14 @@
     <v-container
       grid-list-lg
     >
+
       <v-layout row wrap>
         <v-flex xs12 sm6 lg3 v-for="bird in birds" :key="bird.id">
 
           <v-card @click.native="birdId=bird.id; showBirdDialog=true">
+
             <v-img
+              v-if="bird.pictures.length > 0"
               :src="`http://localhost:8000/pictures/${bird.pictures[0].filename}`"
               aspect-ratio="1.5"
             ></v-img>
@@ -116,7 +180,9 @@ export default {
       familiesSelected: [],
 
       birdId: -1,
-      showBirdDialog: false
+      showBirdDialog: false,
+
+      gardenCheckbox: true,
     }
   },
   mounted () {
@@ -127,10 +193,17 @@ export default {
   },
   methods: {
     getBirds (page = 1) {
-      API.getBirds(page).then((data) => {
-        this.birds = data.data
-        this.numberOfBirds = data.count
-        this.pageCount = data.meta.last_page
+      API.getBirds(
+          this.gardenCheckbox ? 1 : 0,
+          this.ordersSelected.join(),
+          this.familiesSelected.join(),
+          this.habitatsSelected.join(),
+          "",
+          page)
+        .then((data) => {
+          this.birds = data.data
+          this.numberOfBirds = data.count
+          this.pageCount = data.meta.last_page
       })
     },
     getOrders () {
@@ -147,11 +220,20 @@ export default {
       API.getHabitats().then((data) => {
         this.habitats = data
       })
-    }
+    },
   },
   watch: {
     page: function (page) {
       this.getBirds(page)
+    },
+    gardenCheckbox: function (newVal) {
+      console.log(newVal)
+    },
+    ordersSelected: function (newVal) {
+      console.log(newVal)
+    },
+    familiesSelected: function (newVal) {
+      console.log(newVal)
     },
     habitatsSelected: function (newVal) {
       console.log(newVal)
@@ -159,3 +241,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+</style>

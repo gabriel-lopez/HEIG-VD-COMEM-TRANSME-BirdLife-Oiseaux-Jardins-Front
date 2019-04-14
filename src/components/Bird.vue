@@ -17,9 +17,11 @@
             indeterminate
             color="white"
           ></v-progress-circular>
+
           <v-toolbar-title>{{bird.name_fr}}</v-toolbar-title>
 
           <v-spacer></v-spacer>
+
           <v-toolbar-items>
             <!--suppress JSUnnecessarySemicolon -->
             <v-btn dark flat @click.prevent="addBird(bird.id); show = false">Ajouter à ma liste d'observations</v-btn>
@@ -35,6 +37,12 @@
             transition="fade"
           ></v-carousel-item>
         </v-carousel>
+
+        <p v-html="bird.description_fr"></p>
+
+        {{bird.family}}
+        {{bird.order}}
+
       </v-card>
 
     </v-dialog>
@@ -87,3 +95,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+</style>

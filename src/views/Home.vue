@@ -1,16 +1,23 @@
 <template>
   <div class="home">
+    <Jumbotron/>
     <Birds/>
   </div>
 </template>
 
 <script>
-  // @ is an alias to /src
-  import Birds from '@/components/Birds.vue'
+  import Birds from '../components/Birds'
+  import Jumbotron from "../components/Jumbotron";
+
   export default {
     name: 'home',
     components: {
-      Birds
+      Birds,
+      Jumbotron
     }
   }
 </script>
+
+<style scoped>
+
+</style>

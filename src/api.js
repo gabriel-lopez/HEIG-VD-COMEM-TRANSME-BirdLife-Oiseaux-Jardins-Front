@@ -3,9 +3,18 @@ import axios from 'axios'
 const API_URL = 'http://localhost:8000'
 
 export class API {
-  static getBirds (page = 1) {
-    const url = `${API_URL}/api/birds?page=${page}`
-    return axios.get(url).then(response => response.data)
+  static getBirds (pGarden, pOrder, pFamily, pHabitat, pName, page = 1) {
+    const url = `${API_URL}/api/birds`
+    return axios.get(url, {
+      params: {
+        garden: pGarden,
+        order: pOrder,
+        family: pFamily,
+        habitat: pHabitat,
+        name: pName,
+        page: page
+      }
+    }).then(response => response.data)
   }
 
   static getBird (id) {

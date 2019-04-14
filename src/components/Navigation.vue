@@ -37,8 +37,8 @@ export default {
   data () {
     return {
       menu: [
-        { icon: 'home', title: 'Apprends avec Zozo', link: '/zozo' },
-        { icon: 'info', title: 'Participer', link: '/participer' },
+        { icon: 'home', title: 'Apprends avec Zozo', link: '/game' },
+        { icon: 'info', title: 'Participer', link: '/participate' },
         { icon: 'warning', title: 'About', link: '/about' }
       ]
     }

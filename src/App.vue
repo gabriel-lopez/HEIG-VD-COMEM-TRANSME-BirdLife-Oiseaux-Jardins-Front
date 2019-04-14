@@ -9,16 +9,20 @@
       </v-fade-transition>
     </v-content>
 
+    <Footer/>
+
   </v-app>
 </template>
 
 <script>
 import Navigation from "./components/Navigation";
+import Footer from "./components/Footer";
 
 export default {
   name: 'App',
   components: {
-    Navigation
+    Navigation,
+    Footer
   },
   data () {
     return {
@@ -28,6 +32,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

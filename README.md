@@ -29,4 +29,7 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ##Libraries
+* [vue-router](https://github.com/vuejs/vue-router)
+* [vuex](https://github.com/vuejs/vuex) 
 * [vuex-persist](https://github.com/championswimmer/vuex-persist)
+* [vuetify](https://github.com/vuetifyjs/vuetify)
