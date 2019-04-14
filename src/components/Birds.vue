@@ -39,41 +39,6 @@
             hint="What are the target regions"
             persistent-hint
           >
-
-            <!--
-            <template slot="selection" slot-scope="data">
-              <v-flex xs2>
-                <v-avatar size="25px">
-                  <img :src="data.item.safe_avatar_url"/>
-                </v-avatar>
-              </v-flex>
-              <v-flex class='ml-1'>
-                {{ data.item.name }}
-              </v-flex>
-            </template>
-            -->
-<!--
-            <template slot="item" slot-scope="data">
-              <v-list-tile-avatar>
-                <img :src="data.item.safe_avatar_url" />
-              </v-list-tile-avatar>
-              <v-list-tile-content>
-                <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
-              </v-list-tile-content>
-            </template>
--->
-
-            <template slot="item" slot-scope="data">
-            <v-checkbox
-              v-model="gardenCheckbox"
-              :label="`Garden: ${gardenCheckbox.toString()}`"
-              color="primary"
-
-              hint="What are the target regions"
-              persistent-hint
-            ></v-checkbox>
-            </template>
-
           </v-select>
         </v-flex>
 
@@ -108,6 +73,45 @@
             persistent-hint
           ></v-select>
         </v-flex>
+
+
+        <v-flex xs12 sm6 lg4>
+          <v-select
+            multiple
+            chips
+            deletable-chips
+            label="Plumage"
+            :items="colors"
+            v-model="plumageColorsSelected"
+            item-text="name_de"
+            item-value="id"
+            hint="What are the target regions"
+            persistent-hint
+          >
+            <template slot="selection" slot-scope="data">
+              <v-chip
+                close
+                @input="plumageColorsSelected.splice(data.index, 1)"
+              >
+                <v-avatar
+                  :color="data.item.hex"
+                >
+                </v-avatar>
+                {{data.item.name_de}}
+              </v-chip>
+            </template>
+
+            <template slot="item" slot-scope="data">
+              <v-list-tile-avatar>
+                <img :src="data.item.safe_avatar_url" />
+              </v-list-tile-avatar>
+              <v-list-tile-content>
+                <v-list-tile-title v-html="data.item.full_name"></v-list-tile-title>
+              </v-list-tile-content>
+            </template>
+          </v-select>
+        </v-flex>
+
       </v-layout>
     </v-container>
 
@@ -183,6 +187,9 @@ export default {
       showBirdDialog: false,
 
       gardenCheckbox: true,
+
+      colors: [],
+      plumageColorsSelected: [],
     }
   },
   mounted () {
@@ -190,6 +197,7 @@ export default {
     this.getOrders()
     this.getFamilies()
     this.getHabitats()
+    this.getColors()
   },
   methods: {
     getBirds (page = 1) {
@@ -219,6 +227,11 @@ export default {
     getHabitats () {
       API.getHabitats().then((data) => {
         this.habitats = data
+      })
+    },
+    getColors () {
+      API.getColors().then((data) => {
+        this.colors = data
       })
     },
   },

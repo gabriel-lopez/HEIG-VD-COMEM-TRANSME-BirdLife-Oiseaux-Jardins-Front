@@ -36,4 +36,9 @@ export class API {
     const url = `${API_URL}/api/habitats/`
     return axios.get(url).then(response => response.data)
   }
+
+  static getColors () {
+    const url = `${API_URL}/api/colors/`
+    return axios.get(url).then(response => response.data)
+  }
 }
