@@ -27,7 +27,7 @@
             <v-btn dark flat @click.prevent="addBird(bird.id); show = false">Ajouter à ma liste d'observations</v-btn>
           </v-toolbar-items>
         </v-toolbar>
-        
+
         <v-carousel>
           <v-carousel-item
             v-for="(picture,id) in bird.pictures"

@@ -25,7 +25,6 @@
             chips
             deletable-chips
 
-
             :items="orders"
 
             label="Ordre"
@@ -74,7 +73,6 @@
           ></v-select>
         </v-flex>
 
-
         <v-flex xs12 sm6 lg4>
           <v-select
             multiple
@@ -100,14 +98,89 @@
                 {{data.item.name_de}}
               </v-chip>
             </template>
+          </v-select>
+        </v-flex>
 
-            <template slot="item" slot-scope="data">
-              <v-list-tile-avatar>
-                <img :src="data.item.safe_avatar_url" />
-              </v-list-tile-avatar>
-              <v-list-tile-content>
-                <v-list-tile-title v-html="data.item.full_name"></v-list-tile-title>
-              </v-list-tile-content>
+        <v-flex xs12 sm6 lg4>
+          <v-select
+            multiple
+            chips
+            deletable-chips
+            label="Pattes"
+            :items="colors"
+            v-model="legsColorsSelected"
+            item-text="name_de"
+            item-value="id"
+            hint="What are the target regions"
+            persistent-hint
+          >
+            <template slot="selection" slot-scope="data">
+              <v-chip
+                close
+                @input="legsColorsSelected.splice(data.index, 1)"
+              >
+                <v-avatar
+                  :color="data.item.hex"
+                >
+                </v-avatar>
+                {{data.item.name_de}}
+              </v-chip>
+            </template>
+          </v-select>
+        </v-flex>
+
+        <v-flex xs12 sm6 lg4>
+          <v-select
+            multiple
+            chips
+            deletable-chips
+            label="Bec"
+            :items="colors"
+            v-model="beakColorslected"
+            item-text="name_de"
+            item-value="id"
+            hint="What are the target regions"
+            persistent-hint
+          >
+            <template slot="selection" slot-scope="data">
+              <v-chip
+                close
+                @input="beakColorslected.splice(data.index, 1)"
+              >
+                <v-avatar
+                  :color="data.item.hex"
+                >
+                </v-avatar>
+                {{data.item.name_de}}
+              </v-chip>
+            </template>
+          </v-select>
+        </v-flex>
+
+        <v-flex xs12 sm6 lg4>
+          <v-select
+            multiple
+            chips
+            deletable-chips
+            label="Bec"
+            :items="colors"
+            v-model="beakShapesSelected"
+            item-text="name_de"
+            item-value="id"
+            hint="What are the target regions"
+            persistent-hint
+          >
+            <template slot="selection" slot-scope="data">
+              <v-chip
+                close
+                @input="beakShapesSelected.splice(data.index, 1)"
+              >
+                <v-avatar
+                  :color="data.item.hex"
+                >
+                </v-avatar>
+                {{data.item.name_de}}
+              </v-chip>
             </template>
           </v-select>
         </v-flex>
@@ -190,6 +263,14 @@ export default {
 
       colors: [],
       plumageColorsSelected: [],
+      legsColorsSelected: [],
+      beakColorslected: [],
+
+
+      beakShapesSelected: [],
+
+      sizes: [],
+      sizesSelected: []
     }
   },
   mounted () {
@@ -202,17 +283,22 @@ export default {
   methods: {
     getBirds (page = 1) {
       API.getBirds(
-          this.gardenCheckbox ? 1 : 0,
-          this.ordersSelected.join(),
-          this.familiesSelected.join(),
-          this.habitatsSelected.join(),
-          "",
-          page)
+        this.gardenCheckbox ? 1 : 0,
+        this.ordersSelected.join(),
+        this.familiesSelected.join(),
+        this.habitatsSelected.join(),
+        this.plumageColorsSelected.join(),
+        this.legsColorsSelected.join(),
+        this.beakColorslected.join(),
+        this.beakShapesSelected.join(),
+        this.sizesSelected.join(),
+        '',
+        page)
         .then((data) => {
           this.birds = data.data
           this.numberOfBirds = data.count
           this.pageCount = data.meta.last_page
-      })
+        })
     },
     getOrders () {
       API.getOrders().then((data) => {
@@ -234,22 +320,15 @@ export default {
         this.colors = data
       })
     },
+    getSizes () {
+      API.getSizes().then((data) => {
+        this.sizes = data
+      })
+    }
   },
   watch: {
     page: function (page) {
       this.getBirds(page)
-    },
-    gardenCheckbox: function (newVal) {
-      console.log(newVal)
-    },
-    ordersSelected: function (newVal) {
-      console.log(newVal)
-    },
-    familiesSelected: function (newVal) {
-      console.log(newVal)
-    },
-    habitatsSelected: function (newVal) {
-      console.log(newVal)
     }
   }
 }
