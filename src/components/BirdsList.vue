@@ -186,7 +186,7 @@
           </v-select>
         </v-flex>
 
-        -->
+
         <v-flex xs12 sm6 lg4>
           <v-select
             multiple
@@ -201,7 +201,10 @@
             persistent-hint
           >
           </v-select>
+
+
         </v-flex>
+         -->
 
       </v-layout>
     </v-container>
@@ -253,7 +256,7 @@ import { API } from '../api'
 import Bird from './Bird'
 
 export default {
-  name: 'Birds',
+  name: 'BirdsList',
   components: {
     Bird
   },

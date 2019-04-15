@@ -74,6 +74,7 @@ export default {
   data () {
     return {
       menu: [
+        { icon: 'birds', title: 'Birds', link: '/birds', divider: true },
         { icon: 'home', title: 'Apprends avec Zozo', link: '/game', divider: true },
         { icon: 'info', title: 'Participer', link: '/participate' },
         { icon: 'warning', title: 'About', link: '/about' }
