@@ -8,6 +8,7 @@
 
       <v-layout row>
 
+        <!--
         <v-flex xs12 sm6 lg4>
           <v-checkbox
             v-model="gardenCheckbox"
@@ -162,8 +163,8 @@
             multiple
             chips
             deletable-chips
-            label="Bec"
-            :items="colors"
+            label="Bec Forme"
+            :items="beakShapes"
             v-model="beakShapesSelected"
             item-text="name_de"
             item-value="id"
@@ -182,6 +183,23 @@
                 {{data.item.name_de}}
               </v-chip>
             </template>
+          </v-select>
+        </v-flex>
+
+        -->
+        <v-flex xs12 sm6 lg4>
+          <v-select
+            multiple
+            chips
+            deletable-chips
+            label="Tailles"
+            :items="sizes"
+            v-model="sizesSelected"
+            item-text="name_de"
+            item-value="id"
+            hint="What are the target regions"
+            persistent-hint
+          >
           </v-select>
         </v-flex>
 
@@ -266,7 +284,7 @@ export default {
       legsColorsSelected: [],
       beakColorslected: [],
 
-
+      beakShapes: [],
       beakShapesSelected: [],
 
       sizes: [],
@@ -279,6 +297,8 @@ export default {
     this.getFamilies()
     this.getHabitats()
     this.getColors()
+    this.getBeakShapes()
+    this.getSizes()
   },
   methods: {
     getBirds (page = 1) {
@@ -318,6 +338,11 @@ export default {
     getColors () {
       API.getColors().then((data) => {
         this.colors = data
+      })
+    },
+    getBeakShapes () {
+      API.getBeakShapes().then((data) => {
+        this.beakShapes = data
       })
     },
     getSizes () {

@@ -6,12 +6,12 @@ import '@fortawesome/fontawesome-free/css/all.css'
 Vue.use(Vuetify, {
   iconfont: 'fa', /* old md */
   theme: {
-    primary: "#f44336",
-    secondary: "#e57373",
-    accent: "#9c27b0",
-    error: "#f44336",
-    warning: "#ffeb3b",
-    info: "#2196f3",
-    success: "#4caf50"
+    primary: '#f44336',
+    secondary: '#e57373',
+    accent: '#9c27b0',
+    error: '#f44336',
+    warning: '#ffeb3b',
+    info: '#2196f3',
+    success: '#4caf50'
   }
-});
+})

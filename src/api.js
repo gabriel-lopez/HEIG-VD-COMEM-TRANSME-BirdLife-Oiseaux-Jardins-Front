@@ -47,6 +47,11 @@ export class API {
     return axios.get(url).then(response => response.data)
   }
 
+  static getBeakShapes () {
+    const url = `${API_URL}/api/beakshapes/`
+    return axios.get(url).then(response => response.data)
+  }
+
   static getSizes () {
     const url = `${API_URL}/api/sizes/`
     return axios.get(url).then(response => response.data)
