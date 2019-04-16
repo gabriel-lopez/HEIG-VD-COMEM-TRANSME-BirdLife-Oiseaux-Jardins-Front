@@ -32,4 +32,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 * [vue-router](https://github.com/vuejs/vue-router)
 * [vuex](https://github.com/vuejs/vuex) 
 * [vuex-persist](https://github.com/championswimmer/vuex-persist)
+* [vee-validate](https://github.com/baianat/vee-validate)
 * [vuetify](https://github.com/vuetifyjs/vuetify)

@@ -1,148 +1,159 @@
 <template>
   <div>
-    <v-stepper v-model="e6" vertical>
+    <v-stepper
+      v-model="step"
+      non-linear
+      vertical>
       <v-stepper-step
-        :complete="e6 > 1"
-        step="1">
-        Mes Observations
-        <small>Summarize if needed</small>
+        step="1"
+        :complete="step > 1">
+        Mes observations
+        <!--<small>Summarize if needed</small>-->
       </v-stepper-step>
 
       <v-stepper-content step="1">
-
-
-
         <v-card color="grey lighten-1" class="mb-5" height="200px">
-
           {{birds}}
-
         </v-card>
-
-
-        <v-btn color="primary" @click="e6 = 2">Continue</v-btn>
+        <v-btn color="primary" @click="step = 2">Continue</v-btn>
         <v-btn flat>Cancel</v-btn>
       </v-stepper-content>
 
-      <v-stepper-step :complete="e6 > 2" step="2">Configure analytics for this app</v-stepper-step>
+      <v-stepper-step
+        step="2"
+        :complete="step > 2"
+        editable
+      >
+        Lieu et date de mes observations
+      </v-stepper-step>
 
       <v-stepper-content step="2">
-        <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
-        <v-btn color="primary" @click="e6 = 3">Continue</v-btn>
+        <v-layout row wrap>
+          <v-flex xs12 md6>
+            <v-text-field
+              name="name"
+              label="Nom"
+              v-model="registration.name"
+              v-validate="'required'"
+              :error-messages="errors.collect('name')">
+            </v-text-field>
+          </v-flex>
+          <v-flex xs12 md6>
+            <v-text-field
+              name="surname"
+              label="Prénom"
+              v-model="registration.surname"
+              v-validate="'required'"
+              :error-messages="errors.collect('surname')">
+            </v-text-field>
+          </v-flex>
+        </v-layout>
+        <v-btn color="primary" @click="step = 3">Continue</v-btn>
         <v-btn flat>Cancel</v-btn>
       </v-stepper-content>
 
-      <v-stepper-step :complete="e6 > 3" step="3">Select an ad format and name ad unit</v-stepper-step>
+      <v-stepper-step
+        step="3"
+        :complete="step > 3"
+        editable
+        :rules="[() => !errors.has('name') && !errors.has('email')]">
+        Données personnelles
+      </v-stepper-step>
 
       <v-stepper-content step="3">
-        <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
-        <v-btn color="primary" @click="e6 = 4">Continue</v-btn>
+        <div grid-list-md text-xs-center>
+          <v-layout row wrap>
+            <v-flex xs12 md6>
+              <v-text-field
+                name="name"
+                label="Nom"
+                v-model="registration.name"
+                v-validate="'required'"
+                :error-messages="errors.collect('name')">
+              </v-text-field>
+            </v-flex>
+            <v-flex xs12 md6>
+              <v-text-field
+                name="surname"
+                label="Prénom"
+                v-model="registration.surname"
+                v-validate="'required'"
+                :error-messages="errors.collect('surname')">
+              </v-text-field>
+            </v-flex>
+          </v-layout>
+
+          <v-layout row wrap>
+            <v-flex xs12>
+              <v-text-field
+                name="email"
+                label="Email"
+                v-model="registration.email"
+                v-validate="'required|email'"
+                :error-messages="errors.collect('email')">
+              </v-text-field>
+            </v-flex>
+          </v-layout>
+        </div>
+        <v-btn color="primary" @click="step = 4">Continue</v-btn>
         <v-btn flat>Cancel</v-btn>
       </v-stepper-content>
 
-      <v-stepper-step step="4">View setup instructions</v-stepper-step>
+      <v-stepper-step
+        step="4">
+        Inscription à la Newsletter
+      </v-stepper-step>
+
       <v-stepper-content step="4">
         <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
-        <v-btn color="primary" @click="e6 = 1">Continue</v-btn>
+        <v-btn color="primary" @click="step = 1">Continue</v-btn>
         <v-btn flat>Cancel</v-btn>
+
+        <v-btn color="primary" @click="submit">Save</v-btn>
       </v-stepper-content>
     </v-stepper>
-
-    <!--<v-stepper
-      v-model="e1"
-      class="elevation-0"
-      vertical
-    >
-      <v-stepper-header
-        class="elevation-0"
-      >
-        <v-stepper-step :complete="e1 > 1" step="1">Mes Observations</v-stepper-step>
-
-        <v-divider></v-divider>
-
-        <v-stepper-step :complete="e1 > 2" step="2">Lieu et Date</v-stepper-step>
-
-        <v-divider></v-divider>
-
-        <v-stepper-step step="3">Mes Coordonnées</v-stepper-step>
-      </v-stepper-header>
-
-      <v-stepper-items>
-        <v-stepper-content step="1">
-          <v-card
-            class="mb-5"
-            color="grey lighten-1"
-            height="200px"
-          ></v-card>
-
-          <v-btn
-            color="primary"
-            @click="e1 = 2"
-          >
-            Continue
-          </v-btn>
-
-          <v-btn flat>Cancel</v-btn>
-        </v-stepper-content>
-
-        <v-stepper-content step="2">
-          <v-card
-            class="mb-5"
-            color="grey lighten-1"
-            height="200px"
-          ></v-card>
-
-          <v-btn
-            color="primary"
-            @click="e1 = 3"
-          >
-            Continue
-          </v-btn>
-
-          <v-btn flat>Cancel</v-btn>
-        </v-stepper-content>
-
-        <v-stepper-content step="3">
-          <v-card
-            class="mb-5"
-            color="grey lighten-1"
-            height="200px"
-          ></v-card>
-
-          <v-btn
-            color="primary"
-            @click="e1 = 1"
-          >
-            Continue
-          </v-btn>
-
-          <v-btn flat>Cancel</v-btn>
-        </v-stepper-content>
-      </v-stepper-items>
-    </v-stepper>-->
-
-
   </div>
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        e6: 0
-      }
-    },
-    mounted() {
-      console.log("Participate mounted")
-    },
-    computed: {
-      birds () {
-        return this.$store.state.birds
+export default {
+  data () {
+    return {
+      step: 1,
+      registration: {
+        name: null,
+        surname: null,
+        email: null,
+        birthday: null,
+
+        street: null,
+        city: null,
+        state: null,
+        numtickets: null,
+        shirtsize: null
       }
     }
-  };
+  },
+  mounted () {
+    console.log('Participate mounted')
+  },
+  methods: {
+    submit () {
+      this.$validator.validate().then(result => {
+        if (result) {
+          alert('This is the post. Blah')
+        }
+      })
+    }
+  },
+  computed: {
+    birds () {
+      return this.$store.state.birds
+    }
+  }
+}
 </script>
 
 <style scoped>
 
 </style>
-

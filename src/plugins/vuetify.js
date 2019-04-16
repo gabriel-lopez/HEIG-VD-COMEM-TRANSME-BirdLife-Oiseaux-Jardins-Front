@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
+import VeeValidate from 'vee-validate'
+
 import 'vuetify/src/stylus/app.styl'
 import '@fortawesome/fontawesome-free/css/all.css'
 
@@ -15,3 +17,5 @@ Vue.use(Vuetify, {
     success: '#4caf50'
   }
 })
+
+Vue.use(VeeValidate)
