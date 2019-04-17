@@ -10,8 +10,8 @@
 
       <router-link to="/" class="toolbar-title">
         <v-toolbar-title class="headline text-uppercase">
-          <span>Action </span>
-          <span class="font-weight-light">Oiseaux de nos jardins</span>
+          <!--<span>Action </span>-->
+          <span class="font-weight-light">{{ $t('title') }}</span>
         </v-toolbar-title>
       </router-link>
 
@@ -21,9 +21,11 @@
         <v-btn
           v-for="item in menu"
           :key="item.icon"
-          :to="item.link"
+          :to= "item.link"
           flat
-        >{{ item.title }}</v-btn>
+        >{{ $t(item.title) }}</v-btn>
+
+        <LanguageSwitcher/>
       </v-toolbar-items>
     </v-toolbar>
     <v-navigation-drawer
@@ -38,46 +40,47 @@
         <v-list>
           <v-list-tile>
             <v-list-tile-title class="title">
-              Application
+              {{ $t('menu') }}
             </v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-toolbar>
-
       <v-divider></v-divider>
-
       <v-list class="pt-0" >
         <v-list-tile
           v-for="item in menu"
           :key="item.title"
-          ripple
-          @click=""
-        >
+          :to="item.link"
+          ripple>
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            <v-list-tile-title>{{ $t(item.title) }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list >
-
       <v-spacer></v-spacer>
-
     </v-navigation-drawer>
   </div>
 </template>
 
 <script>
+import LanguageSwitcher from './LanguageSwitcher'
+
 export default {
+  name: 'Navigation',
+  components: {
+    LanguageSwitcher
+  },
   data () {
     return {
       menu: [
-        { icon: 'birds', title: 'Birds', link: '/birds', divider: true },
-        { icon: 'home', title: 'Apprends avec Zozo', link: '/game', divider: true },
-        { icon: 'info', title: 'Participer', link: '/participate' },
-        { icon: 'warning', title: 'About', link: '/about' }
+        { icon: 'fa-dove', title: 'birds', link: '/birds' },
+        { icon: 'fa-graduation-cap', title: 'learnwithzozo', link: '/game' },
+        { icon: 'fa-binoculars', title: 'participate', link: '/participate' },
+        { icon: 'fa-info-circle', title: "aboutus", link: '/about' }
       ],
       drawer: false
     }
