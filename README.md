@@ -33,4 +33,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 * [vuex](https://github.com/vuejs/vuex) 
 * [vuex-persist](https://github.com/championswimmer/vuex-persist)
 * [vee-validate](https://github.com/baianat/vee-validate)
+* [vue-i18n](https://github.com/kazupon/vue-i18n)
 * [vuetify](https://github.com/vuetifyjs/vuetify)

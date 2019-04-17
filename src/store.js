@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import VuexPersist from 'vuex-persist'
 
+import { BirdModel } from './models/BirdModel'
+
 Vue.use(Vuex)
 
 const vuexPersist = new VuexPersist({
@@ -17,7 +19,15 @@ const store = new Vuex.Store({
   },
   mutations: {
     addBird (state, bird) {
-      state.birds.push(bird)
+      let item = state.birds.find(function (item) {
+        return item.id === bird.id
+      })
+
+      if (item) {
+        item.counter++
+      } else {
+        state.birds.push(new BirdModel(bird))
+      }
     }
   },
   actions: {

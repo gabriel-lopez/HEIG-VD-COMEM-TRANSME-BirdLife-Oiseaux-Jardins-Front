@@ -24,7 +24,7 @@
 
           <v-toolbar-items>
             <!--suppress JSUnnecessarySemicolon -->
-            <v-btn dark flat @click.prevent="addBird(bird.id); show = false">Ajouter à ma liste d'observations</v-btn>
+            <v-btn dark flat @click.prevent="addBird(bird); show = false">Ajouter à ma liste d'observations</v-btn>
           </v-toolbar-items>
         </v-toolbar>
 
@@ -69,8 +69,8 @@ export default {
         this.loading = false
       })
     },
-    addBird: function (id) {
-      this.$store.commit('addBird', id)
+    addBird: function (bird) {
+      this.$store.commit('addBird', bird)
     }
   },
   computed: {
@@ -84,6 +84,9 @@ export default {
           this.$emit('close')
         }
       }
+    },
+    birds () {
+      return this.$store.state.birds
     }
   },
   watch: {

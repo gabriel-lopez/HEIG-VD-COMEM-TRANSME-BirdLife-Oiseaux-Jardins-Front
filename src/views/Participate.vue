@@ -15,9 +15,34 @@
       </v-stepper-step>
 
       <v-stepper-content step="1">
-        <p>
-          {{birds}}
-        </p>
+        <v-container
+          grid-list-lg>
+          <v-layout row wrap>
+            <v-flex xs4 sm3 lg2 v-for="bird in birds" :key="bird.id">
+              <v-badge right overlap>
+                <template v-slot:badge>
+                  <span>{{bird.counter}}</span>
+                </template>
+                <v-card
+                  @click.native="birdId=bird.id; showBirdDialog=true">
+                  <v-img
+                    v-if="bird.picture"
+                    :src="`http://localhost:8000/pictures/${bird.picture}`"
+                    aspect-ratio="1.5"
+                  ></v-img>
+                  <v-card-title
+                    pa-0
+                    primary-title>
+                    <div>
+                      <h4 class="caption ">{{bird.name_fr}}</h4>
+                    </div>
+                  </v-card-title>
+                </v-card>
+              </v-badge>
+            </v-flex>
+          </v-layout>
+        </v-container>
+
         <v-btn color="primary" @click="step = 2">Continue</v-btn>
       </v-stepper-content>
 
@@ -30,6 +55,33 @@
       </v-stepper-step>
 
       <v-stepper-content step="2">
+
+        <v-container grid-list-md text-xs-center>
+          <v-layout row wrap>
+            <v-flex xs12 md6>
+              <v-layout row wrap>
+                <v-flex xs12 md6>
+                  Bcp. d‘arbustes indigènes
+                  Bcp. d‘arbustes exotiques
+                  Arbres indigènes
+                  Arbres exotiques
+                  Prairie fleurie
+                </v-flex>
+                <v-flex xs12 md6>
+                  Gazon
+                  Étang
+                  Nichoir
+                  Surface de gravier/sable
+                  Tas de bois
+                </v-flex>
+              </v-layout>
+            </v-flex>
+            <v-flex xs12 md6>
+            </v-flex>
+          </v-layout>
+        </v-container>
+
+<!--
         <v-layout row wrap>
           <v-flex xs12 md6>
             <v-text-field
@@ -50,6 +102,7 @@
             </v-text-field>
           </v-flex>
         </v-layout>
+        -->
         <v-btn color="primary" @click="step = 3">Continue</v-btn>
       </v-stepper-content>
 
@@ -99,7 +152,7 @@
                 name="birthday"
                 label="Date de naissance"
                 v-model="participation.birthday"
-                v-validate="'required|date'"
+                v-validate="'required'"
                 :error-messages="errors.collect('birthday')">
               </v-text-field>
             </v-flex>
@@ -110,21 +163,47 @@
       </v-stepper-content>
 
       <v-stepper-step
-        step="4">
+        step="4"
+        editable
+        edit-icon="$vuetify.icons.complete">
         Inscription à la Newsletter
       </v-stepper-step>
 
       <v-stepper-content step="4">
-        <v-checkbox v-model="participation.newsletter.checkbox1" :label="`Checkbox 1: ${participation.newsletter.checkbox1.toString()}`"></v-checkbox>
-        <v-checkbox v-model="participation.newsletter.checkbox2" :label="`Checkbox 1: ${participation.newsletter.checkbox2.toString()}`"></v-checkbox>
-        <v-checkbox v-model="participation.newsletter.checkbox3" :label="`Checkbox 1: ${participation.newsletter.checkbox3.toString()}`"></v-checkbox>
-
+        <v-checkbox
+          color="primary"
+          v-model="participation.newsletter.checkbox1"
+          label="Oui, je souhaiterais plus d‘infos de BirdLife Suisse."></v-checkbox>
+        <v-checkbox
+          color="primary"
+          v-model="participation.newsletter.checkbox2"
+          label="J‘aimerais devenir membre de BirdLife Suisse (Cotisation annuelle Fr. 50.– , comprend le journal «Info BirdLife Suisse»)"></v-checkbox>
+        <v-checkbox
+          color="primary"
+          v-model="participation.newsletter.checkbox3"
+          label="Je commande la brochure «Action Oiseaux de nos jardins» (gratuite pour ceux qui communiquent leurs observations, ex. supplémentaires Fr. 4.–)"></v-checkbox>
         <div>
           <v-btn flat>Précédant</v-btn>
           <v-btn color="primary" @click="submit">Envoyer</v-btn>
         </div>
       </v-stepper-content>
     </v-stepper>
+
+    <v-snackbar
+      v-model="snackbar"
+      :color="snackbarColor"
+      :timeout="1500"
+      vertical
+    >
+      {{ text }}
+      <v-btn
+        dark
+        flat
+        @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
   </div>
 </template>
 
@@ -133,27 +212,29 @@ export default {
   data () {
     return {
       step: 1,
+      snackbar: false,
+      snackbarColor: '',
       participation: {
         user: {
           name: null,
           surname: null,
           email: null,
-          birthday: null,
+          birthday: null
         },
         userPlace: {
           street: null,
           streetNo: null,
           npa: null,
-          city: null,
+          city: null
         },
         place: {
           npa: null,
-          city: null,
+          city: null
         },
         newsletter: {
           checkbox1: false,
           checkbox2: false,
-          checkbox3: false,
+          checkbox3: false
         }
       }
     }
@@ -165,8 +246,11 @@ export default {
     submit () {
       this.$validator.validate().then(result => {
         if (result) {
-          alert('This is the post. Blah')
+          this.snackbarColor = 'success'
+        } else {
+          this.snackbarColor = 'error'
         }
+        this.snackbar = true
       })
     }
   },
