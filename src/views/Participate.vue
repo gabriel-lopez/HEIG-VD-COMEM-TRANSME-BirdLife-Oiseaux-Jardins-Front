@@ -33,7 +33,7 @@
                   <v-card-title
                     pa-0
                     primary-title>
-                    <div>
+                    <div >
                       <h4 class="caption ">{{bird.name_fr}}</h4>
                     </div>
                   </v-card-title>
@@ -52,6 +52,7 @@
         editable
         :rules="[() => !errors.has('participation.place.npa') && !errors.has('participation.place.city')]">
         Lieu et date de mes observations
+        <small>Merci d’entrer les informations à propos de votre lieu d’observation</small>
       </v-stepper-step>
 
       <v-stepper-content step="2">
@@ -59,6 +60,11 @@
         <v-container grid-list-md text-xs-center>
           <v-layout row wrap>
             <v-flex xs12 md6>
+              <v-layout row wrap>
+                <v-flex xs12>
+                  Sur mon lieu d'observation, il y a beaucoup de:
+                </v-flex>
+              </v-layout>
               <v-layout row wrap>
                 <v-flex xs12 md6>
                   <v-checkbox
@@ -98,32 +104,93 @@
               </v-layout>
             </v-flex>
             <v-flex xs12 md6>
+              <v-layout row wrap>
+                <v-flex xs12>
+                  J'ai observé durant 1 heure le:
+                </v-flex>
+                <v-flex>
+                  <v-flex xs12>
+                    <v-menu
+                      v-model="datePickerEvent"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      lazy
+                      transition="scale-transition"
+                      offset-y
+                      full-width
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="participation.date"
+                          label="Jour de l'observation"
+                          prepend-icon="event"
+                          readonly
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker v-model="participation.date" @input="datePickerEvent = false"></v-date-picker>
+                    </v-menu>
+                  </v-flex>
+                  <v-flex xs12>
+                    <v-menu
+                      ref="menu"
+                      v-model="timePickerEvent"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      :return-value.sync="participation.time"
+                      lazy
+                      transition="scale-transition"
+                      offset-y
+                      full-width
+                      max-width="290px"
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="participation.time"
+                          label="Picker in menu"
+                          prepend-icon="access_time"
+                          readonly
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-time-picker
+                        v-if="timePickerEvent"
+                        v-model="time"
+                        full-width
+                        @click:minute="$refs.menu.save(time)"
+                      ></v-time-picker>
+                    </v-menu>
+                  </v-flex>
+                </v-flex>
+              </v-layout>
+              <v-layout row wrap>
+                <v-flex xs12>
+                  Lieu d'observation:
+                </v-flex>
+                <v-flex xs12>
+                  <v-text-field
+                    name="participation.place.npa"
+                    label="NPA"
+                    v-model="participation.place.npa"
+                    v-validate="'required'"
+                    :error-messages="errors.collect('participation.place.npa')">
+                  </v-text-field>
+                </v-flex>
+                <v-flex xs12>
+                  <v-text-field
+                    name="participation.place.city"
+                    label="Ville"
+                    v-model="participation.place.city"
+                    v-validate="'required'"
+                    :error-messages="errors.collect('participation.place.city')">
+                  </v-text-field>
+                </v-flex>
+              </v-layout>
             </v-flex>
           </v-layout>
         </v-container>
-
-<!--
-        <v-layout row wrap>
-          <v-flex xs12 md6>
-            <v-text-field
-              name="participation.place.npa"
-              label="NPA"
-              v-model="participation.place.npa"
-              v-validate="'required'"
-              :error-messages="errors.collect('participation.place.npa')">
-            </v-text-field>
-          </v-flex>
-          <v-flex xs12 md6>
-            <v-text-field
-              name="participation.place.city"
-              label="Ville"
-              v-model="participation.place.city"
-              v-validate="'required'"
-              :error-messages="errors.collect('participation.place.city')">
-            </v-text-field>
-          </v-flex>
-        </v-layout>
-        -->
         <v-btn color="primary" @click="step = 3">{{ $t('next') }}</v-btn>
       </v-stepper-content>
 
@@ -133,10 +200,11 @@
         editable
         :rules="[() => !errors.has('name') && !errors.has('email')]">
         Données personnelles
+        <small>Merci d’entrer vos informations personnelles</small>
       </v-stepper-step>
 
       <v-stepper-content step="3">
-        <div grid-list-md text-xs-center>
+        <v-container grid-list-md text-xs-center>
           <v-layout row wrap>
             <v-flex xs12 md6>
               <v-text-field
@@ -178,9 +246,8 @@
               </v-text-field>
             </v-flex>
           </v-layout>
-        </div>
+        </v-container>
         <v-btn color="primary" @click="step = 4">{{ $t('next') }}</v-btn>
-        <v-btn flat>Cancel</v-btn>
       </v-stepper-content>
 
       <v-stepper-step
@@ -214,17 +281,18 @@
 
     <v-snackbar
       v-model="snackbar"
-      :color="snackbarColor"
+      color="success"
       :timeout="1500"
       vertical
     >
       {{ snackbarText }}
+      Merci de votre participation !
       <v-btn
         dark
         flat
         @click="snackbar = false"
       >
-        Close
+        Fermer
       </v-btn>
     </v-snackbar>
   </div>
@@ -236,9 +304,13 @@ export default {
     return {
       step: 1,
       snackbar: false,
-      snackbarColor: '',
+      snackbarColor: 'success',
       snackbarText: '',
+      datePickerEvent: false,
+      timePickerEvent: false,
       participation: {
+        date: null,
+        time: null,
         user: {
           name: null,
           surname: null,

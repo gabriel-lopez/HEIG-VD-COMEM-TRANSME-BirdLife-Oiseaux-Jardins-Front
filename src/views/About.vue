@@ -5,14 +5,13 @@
 </template>
 
 <script>
-  export default {
-    mounted() {
-      console.log("About mounted")
-    },
-  };
+export default {
+  mounted () {
+    console.log('About mounted')
+  }
+}
 </script>
 
 <style scoped>
 
 </style>
-

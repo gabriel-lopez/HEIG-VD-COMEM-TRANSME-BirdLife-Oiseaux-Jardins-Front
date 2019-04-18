@@ -4,18 +4,25 @@
 
       <h2>Filtres</h2>
 
-      <v-btn @click.prevent="getBirds()" color="success">RELOAD</v-btn>
+      <!--<v-btn @click.prevent="menuFiltre = !menuFiltre" color="secondary">Filtres</v-btn>-->
+
+      <v-navigation-drawer
+        v-model="menuFiltre"
+        right
+        temporary
+        fixed>
+
+      </v-navigation-drawer>
 
       <v-layout row>
 
-        <!--
         <v-flex xs12 sm6 lg4>
           <v-checkbox
             v-model="gardenCheckbox"
-            :label="`Garden: ${gardenCheckbox.toString()}`"
+            label="Oiseaux de jardin"
             color="primary"
 
-            hint="What are the target regions"
+            hint=""
             persistent-hint
           ></v-checkbox>
         </v-flex>
@@ -36,7 +43,7 @@
 
             v-model="ordersSelected"
 
-            hint="What are the target regions"
+            hint=""
             persistent-hint
           >
           </v-select>
@@ -53,7 +60,7 @@
             item-value="id"
             v-model="familiesSelected"
 
-            hint="What are the target regions"
+            hint=""
             persistent-hint
           ></v-select>
         </v-flex>
@@ -69,7 +76,7 @@
             item-value="id"
             v-model="habitatsSelected"
 
-            hint="What are the target regions"
+            hint=""
             persistent-hint
           ></v-select>
         </v-flex>
@@ -84,7 +91,7 @@
             v-model="plumageColorsSelected"
             item-text="name_de"
             item-value="id"
-            hint="What are the target regions"
+            hint=""
             persistent-hint
           >
             <template slot="selection" slot-scope="data">
@@ -102,6 +109,8 @@
           </v-select>
         </v-flex>
 
+      </v-layout>
+    <v-layout row>
         <v-flex xs12 sm6 lg4>
           <v-select
             multiple
@@ -112,7 +121,7 @@
             v-model="legsColorsSelected"
             item-text="name_de"
             item-value="id"
-            hint="What are the target regions"
+            hint=""
             persistent-hint
           >
             <template slot="selection" slot-scope="data">
@@ -140,7 +149,7 @@
             v-model="beakColorslected"
             item-text="name_de"
             item-value="id"
-            hint="What are the target regions"
+            hint=""
             persistent-hint
           >
             <template slot="selection" slot-scope="data">
@@ -168,7 +177,7 @@
             v-model="beakShapesSelected"
             item-text="name_de"
             item-value="id"
-            hint="What are the target regions"
+            hint=""
             persistent-hint
           >
             <template slot="selection" slot-scope="data">
@@ -186,7 +195,6 @@
           </v-select>
         </v-flex>
 
-
         <v-flex xs12 sm6 lg4>
           <v-select
             multiple
@@ -197,16 +205,22 @@
             v-model="sizesSelected"
             item-text="name_de"
             item-value="id"
-            hint="What are the target regions"
+            hint=""
             persistent-hint
           >
           </v-select>
 
-
         </v-flex>
-         -->
 
+    </v-layout>
+
+      <v-layout row class="text-xs-right">
+        <v-spacer></v-spacer>
+        <p class="text-xs-right">
+          <v-btn @click.prevent="getBirds()" color="primary">Filtrer</v-btn>
+        </p>
       </v-layout>
+
     </v-container>
 
     <v-container
@@ -262,6 +276,8 @@ export default {
   },
   data () {
     return {
+      menuFiltre: false,
+
       birds: [],
       numberOfBirds: 0,
 

@@ -39,10 +39,10 @@
         </v-carousel>
 
         <p v-html="bird.description_fr"></p>
-
+        <!--
         {{bird.family}}
         {{bird.order}}
-
+        -->
       </v-card>
 
     </v-dialog>

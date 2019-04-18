@@ -80,7 +80,7 @@ export default {
         { icon: 'fa-dove', title: 'birds', link: '/birds' },
         { icon: 'fa-graduation-cap', title: 'learnwithzozo', link: '/game' },
         { icon: 'fa-binoculars', title: 'participate', link: '/participate' },
-        { icon: 'fa-info-circle', title: "aboutus", link: '/about' }
+        { icon: 'fa-info-circle', title: 'aboutus', link: '/about' }
       ],
       drawer: false
     }
