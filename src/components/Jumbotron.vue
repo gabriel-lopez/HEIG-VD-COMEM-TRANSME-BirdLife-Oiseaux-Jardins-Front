@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>Jumbotron</h1>
+    <img src="@/assets/banniere.svg">
+    <br/>
   </div>
 </template>
 

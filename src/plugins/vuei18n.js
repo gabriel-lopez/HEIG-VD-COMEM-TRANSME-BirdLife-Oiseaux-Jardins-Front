@@ -10,7 +10,7 @@ import it from '@/locales/it.json'
 Vue.use(VueI18n)
 
 export const i18n = new VueI18n({
-  locale:  store.getters.language,
+  locale: store.getters.language,
   fallbackLocale: 'fr',
   messages: { de, fr, it }
 })

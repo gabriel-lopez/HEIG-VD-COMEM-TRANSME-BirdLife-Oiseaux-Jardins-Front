@@ -14,9 +14,8 @@ const vuexPersist = new VuexPersist({
 const store = new Vuex.Store({
   plugins: [vuexPersist.plugin],
   state: {
-    birds: [],
-    participation: {},
-    language: 'fr'
+    language: 'fr',
+    birds: []
   },
   mutations: {
     addBird (state, bird) {
