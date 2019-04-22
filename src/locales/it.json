@@ -2,11 +2,14 @@
   "title": "Uccelli dei nostri giardini",
   "menu": "Menu principale",
   "birds": "Uccelli",
-  "learnwithzozo": "Imparare con Zozo",
+  "learn_with_zozo": "Imparare con Zozo",
   "participate": "Partecipare",
-  "aboutus": "Chi siamo",
+  "about_us": "Chi siamo",
 
   "social_networks": "",
+
+  "my_observations": "",
+  "place_and_date_of_my_observations": "",
 
   "next": "Prossimo"
 }

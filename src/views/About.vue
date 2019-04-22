@@ -26,6 +26,28 @@
 
 <script>
   export default {
+    name: 'About',
+    metaInfo() {
+      return {
+        title: this.metaInfo
+      }
+    },
+    data() {
+      return {
+        metaInfo: ""
+      }
+    },
+    watch: {
+      title() {
+        //
+      }
+    },
+    computed : {
+      title () {
+        this.metaInfo = this.$i18n.t('aboutus')
+        return this.metaInfo
+      },
+    },
     mounted() {
       console.log("About mounted")
     },

@@ -8,13 +8,31 @@
 import Unity from 'vue-unity-webgl'
 
 export default {
-  data () {
-    return {
-      publicPath: process.env.BASE_URL
-    }
-  },
+  name: 'Learn with Zozo',
   components: {
     Unity
+  },
+  metaInfo() {
+    return {
+      title: this.metaInfo
+    }
+  },
+  data() {
+    return {
+      publicPath: process.env.BASE_URL,
+      metaInfo: ""
+    }
+  },
+  watch: {
+    title() {
+      //
+    }
+  },
+  computed : {
+    title () {
+      this.metaInfo = this.$i18n.t('learnwithzozo')
+      return this.metaInfo
+    },
   },
   mounted () {
     console.log('Game mounted')

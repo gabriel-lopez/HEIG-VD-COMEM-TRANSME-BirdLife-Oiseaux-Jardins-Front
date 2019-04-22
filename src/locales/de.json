@@ -2,11 +2,14 @@
   "title": "Stunde der Gartenvögel",
   "menu": "Hauptmenü",
   "birds": "Vögel",
-  "learnwithzozo": "Lernen mit Zozo",
+  "learn_with_zozo": "Lernen mit Zozo",
   "participate": "Teilnehmen",
-  "aboutus": "Über uns",
+  "about_us": "Über uns",
 
   "social_networks": "",
+
+  "my_observations": "",
+  "place_and_date_of_my_observations": "",
 
   "next": "Folgend"
 }

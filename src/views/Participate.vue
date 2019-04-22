@@ -11,7 +11,8 @@
         editable
         edit-icon="$vuetify.icons.complete"
         :rules="[]">
-        Mes observations
+        {{$t('my_observations')}}
+        <small>{{$t('my_observations_small')}}</small>
       </v-stepper-step>
 
       <v-stepper-content step="1">
@@ -51,8 +52,8 @@
         :complete="step > 2"
         editable
         :rules="[() => !errors.has('participation.place.npa') && !errors.has('participation.place.city')]">
-        Lieu et date de mes observations
-        <small>Merci d’entrer les informations à propos de votre lieu d’observation</small>
+        {{$t('place_and_date_of_my_observations')}}
+        <small>{{$t('place_and_date_of_my_observations_small')}}</small>
       </v-stepper-step>
 
       <v-stepper-content step="2">
@@ -62,7 +63,7 @@
             <v-flex xs12 md6>
               <v-layout row wrap>
                 <v-flex xs12>
-                  Sur mon lieu d'observation, il y a beaucoup de:
+                  {{$t('on_my_observation_site_there_are_many')}}:
                 </v-flex>
               </v-layout>
               <v-layout row wrap>
@@ -106,7 +107,7 @@
             <v-flex xs12 md6>
               <v-layout row wrap>
                 <v-flex xs12>
-                  J'ai observé durant 1 heure le:
+                  {{$t('i_observed_for_1_hour_the')}}:
                 </v-flex>
                 <v-flex>
                   <v-flex xs12>
@@ -122,14 +123,14 @@
                     >
                       <template v-slot:activator="{ on }">
                         <v-text-field
-                          v-model="participation.date"
-                          label="Jour de l'observation"
+                          v-model="participationDate"
+                          label=""
                           prepend-icon="event"
                           readonly
                           v-on="on"
                         ></v-text-field>
                       </template>
-                      <v-date-picker v-model="participation.date" @input="datePickerEvent = false"></v-date-picker>
+                      <v-date-picker v-model="participationDate" @input="datePickerEvent = false"></v-date-picker>
                     </v-menu>
                   </v-flex>
                   <v-flex xs12>
@@ -138,7 +139,7 @@
                       v-model="timePickerEvent"
                       :close-on-content-click="false"
                       :nudge-right="40"
-                      :return-value.sync="participation.time"
+                      :return-value.sync="participationTime"
                       lazy
                       transition="scale-transition"
                       offset-y
@@ -148,8 +149,8 @@
                     >
                       <template v-slot:activator="{ on }">
                         <v-text-field
-                          v-model="participation.time"
-                          label="Picker in menu"
+                          v-model="participationTime"
+                          label=""
                           prepend-icon="access_time"
                           readonly
                           v-on="on"
@@ -167,13 +168,13 @@
               </v-layout>
               <v-layout row wrap>
                 <v-flex xs12>
-                  Lieu d'observation:
+                  {{$t('place_of_observation')}}:
                 </v-flex>
                 <v-flex xs12>
                   <v-text-field
                     name="participation.place.npa"
-                    label="NPA"
-                    v-model="participation.place.npa"
+                    :label="this.$t('postcode')"
+                    v-model="participationUserPlace.npa"
                     v-validate="'required'"
                     :error-messages="errors.collect('participation.place.npa')">
                   </v-text-field>
@@ -181,8 +182,8 @@
                 <v-flex xs12>
                   <v-text-field
                     name="participation.place.city"
-                    label="Ville"
-                    v-model="participation.place.city"
+                    :label="this.$t('city')"
+                    v-model="participationUserPlace.city"
                     v-validate="'required'"
                     :error-messages="errors.collect('participation.place.city')">
                   </v-text-field>
@@ -191,7 +192,10 @@
             </v-flex>
           </v-layout>
         </v-container>
-        <v-btn color="primary" @click="step = 3">{{ $t('next') }}</v-btn>
+        <div>
+          <v-btn flat @click="step = 1">{{$t('previous')}}</v-btn>
+          <v-btn color="primary" @click="step = 3">{{ $t('next') }}</v-btn>
+        </div>
       </v-stepper-content>
 
       <v-stepper-step
@@ -199,8 +203,8 @@
         :complete="step > 3"
         editable
         :rules="[() => !errors.has('name') && !errors.has('email')]">
-        Données personnelles
-        <small>Merci d’entrer vos informations personnelles</small>
+        {{$t('personal_data')}}
+        <small>{{$t('personal_data_small')}}</small>
       </v-stepper-step>
 
       <v-stepper-content step="3">
@@ -209,8 +213,8 @@
             <v-flex xs12 md6>
               <v-text-field
                 name="name"
-                label="Nom"
-                v-model="participation.name"
+                :label="this.$t('name')"
+                v-model="participationUser.name"
                 v-validate="'required'"
                 :error-messages="errors.collect('name')">
               </v-text-field>
@@ -218,8 +222,8 @@
             <v-flex xs12 md6>
               <v-text-field
                 name="surname"
-                label="Prénom"
-                v-model="participation.surname"
+                :label="this.$t('first_name')"
+                v-model="participationUser.surname"
                 v-validate="'required'"
                 :error-messages="errors.collect('surname')">
               </v-text-field>
@@ -230,8 +234,8 @@
             <v-flex xs12 md6>
               <v-text-field
                 name="email"
-                label="Email"
-                v-model="participation.email"
+                :label="this.$t('email')"
+                v-model="participationUser.email"
                 v-validate="'required|email'"
                 :error-messages="errors.collect('email')">
               </v-text-field>
@@ -239,14 +243,15 @@
             <v-flex xs12 md6>
               <v-text-field
                 name="birthday"
-                label="Date de naissance"
-                v-model="participation.birthday"
+                :label="this.$t('birthday')"
+                v-model="participationUser.birthday"
                 v-validate="'required'"
                 :error-messages="errors.collect('birthday')">
               </v-text-field>
             </v-flex>
           </v-layout>
         </v-container>
+        <v-btn flat @click="step = 2">{{$t('previous')}}</v-btn>
         <v-btn color="primary" @click="step = 4">{{ $t('next') }}</v-btn>
       </v-stepper-content>
 
@@ -254,27 +259,28 @@
         step="4"
         editable
         edit-icon="$vuetify.icons.complete">
-        Inscription à la Newsletter
+        {{$t('subscribe_to_the_newsletter')}}
+        <small>{{$t('subscribe_to_the_newsletter_small')}}</small>
       </v-stepper-step>
 
       <v-stepper-content step="4">
         <v-container>
           <v-checkbox
             color="primary"
-            v-model="participation.newsletter.checkbox1"
+            v-model="participationNewsletter.checkbox1"
             label="Oui, je souhaiterais plus d‘infos de BirdLife Suisse."></v-checkbox>
           <v-checkbox
             color="primary"
-            v-model="participation.newsletter.checkbox2"
+            v-model="participationNewsletter.checkbox2"
             label="J‘aimerais devenir membre de BirdLife Suisse (Cotisation annuelle Fr. 50.– , comprend le journal «Info BirdLife Suisse»)"></v-checkbox>
           <v-checkbox
             color="primary"
-            v-model="participation.newsletter.checkbox3"
+            v-model="participationNewsletter.checkbox3"
             label="Je commande la brochure «Action Oiseaux de nos jardins» (gratuite pour ceux qui communiquent leurs observations, ex. supplémentaires Fr. 4.–)"></v-checkbox>
         </v-container>
         <div>
-          <v-btn flat>Précédant</v-btn>
-          <v-btn color="primary" @click="submit">Envoyer</v-btn>
+          <v-btn flat @click="step = 3">{{$t('previous')}}</v-btn>
+          <v-btn color="primary" @click="submit">{{$t('send')}}</v-btn>
         </div>
       </v-stepper-content>
     </v-stepper>
@@ -286,21 +292,29 @@
       vertical
     >
       {{ snackbarText }}
-      Merci de votre participation !
+      {{$t('thank_you_for_your_participation')}}
       <v-btn
         dark
         flat
         @click="snackbar = false"
       >
-        Fermer
+        {{$t('close')}}
       </v-btn>
     </v-snackbar>
   </div>
 </template>
 
 <script>
+import {UserModel} from "../models/UserModel";
+
 export default {
-  data () {
+  name: 'Participate',
+  metaInfo() {
+    return {
+      title: this.metaInfo
+    }
+  },
+  data() {
     return {
       step: 1,
       snackbar: false,
@@ -308,35 +322,13 @@ export default {
       snackbarText: '',
       datePickerEvent: false,
       timePickerEvent: false,
-      participation: {
-        date: null,
-        time: null,
-        user: {
-          name: null,
-          surname: null,
-          email: null,
-          birthday: null
-        },
-        userPlace: {
-          street: null,
-          streetNo: null,
-          npa: null,
-          city: null
-        },
-        place: {
-          npa: null,
-          city: null
-        },
-        newsletter: {
-          checkbox1: false,
-          checkbox2: false,
-          checkbox3: false
-        }
-      }
+      metaInfo: "",
     }
   },
-  mounted () {
-    console.log('Participate mounted')
+  watch: {
+    title () {
+      //
+    }
   },
   methods: {
     submit () {
@@ -353,8 +345,57 @@ export default {
   computed: {
     birds () {
       return this.$store.state.birds
+    },
+    participationDate: {
+      get () {
+        return this.$store.state.participation.date
+      },
+      set (value) {
+        console.log(value)
+        this.$store.commit('setParticipationDate', value)
+      }
+    },
+    participationTime: {
+      get () {
+        return this.$store.state.participation.time
+      },
+      set (value) {
+        this.$store.commit('setParticipationTime', value)
+      }
+    },
+    participationUser: {
+      get () {
+        return this.$store.state.participation.user
+      },
+      set (value) {
+        console.log(value)
+        this.$store.commit('setParticipationUser', value)
+      }
+    },
+    participationUserPlace: {
+      get () {
+        return this.$store.state.participation.userPlace
+      },
+      set (value) {
+        this.$store.commit('setParticipationUserPlace', value)
+      }
+    },
+    participationNewsletter: {
+      get () {
+        return this.$store.state.participation.newsletter
+      },
+      set (value) {
+        this.$store.commit('setParticipationUserPlace', value)
+      }
+    },
+    title () {
+      this.metaInfo = this.$i18n.t('participate')
+      return this.metaInfo
     }
-  }
+  },
+  mounted () {
+    console.log('Participate mounted')
+  },
 }
 </script>
 

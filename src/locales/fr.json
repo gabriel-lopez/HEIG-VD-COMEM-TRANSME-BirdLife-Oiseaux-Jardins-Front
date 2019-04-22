@@ -2,11 +2,41 @@
   "title": "Oiseaux de nos jardins",
   "menu": "Menu Principal",
   "birds": "Oiseaux",
-  "learnwithzozo": "Apprends avec Zozo",
+  "learn_with_zozo": "Apprends avec Zozo",
   "participate": "Participer",
-  "aboutus": "Qui sommes-nous ?",
+  "about_us": "Qui sommes-nous ?",
 
   "social_networks": "Rejoignez-nous sur les réseaux sociaux !",
 
-  "next": "Suivant"
+  "my_observations": "Mes observations",
+  "my_observations_small": "La liste des oiseaux que vous avez observé",
+  "place_and_date_of_my_observations": "Lieu et date de mes observations",
+  "place_and_date_of_my_observations_small": "Merci d’entrer les informations à propos de votre lieu d’observation",
+  "personal_data": "Données personnelles",
+  "personal_data_small": "Merci d’entrer vos informations personnelles",
+  "subscribe_to_the_newsletter": "Inscription à la Newsletter",
+  "subscribe_to_the_newsletter_small": "",
+
+  "thank_you_for_your_participation": "Merci de votre participation !",
+
+  "on_my_observation_site_there_are_many": "Sur mon lieu d'observation, il y a beaucoup de",
+
+  "i_observed_for_1_hour_the": "J'ai observé durant 1 heure le",
+
+  "day_of_observation": "Jour de l'observation",
+  "start_time_of_the_observation": "Heure de début de l'observation",
+
+  "place_of_observation": "Lieu d'observation",
+  "postcode": "NPA",
+  "city": "Ville",
+
+  "name": "Nom",
+  "first_name": "Prénom",
+  "email": "E-Mail",
+  "birthday": "Date de naissance",
+
+  "next": "Suivant",
+  "previous": "Précédant",
+  "send": "Envoyer",
+  "close": "Fermer"
 }

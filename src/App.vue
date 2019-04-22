@@ -20,6 +20,10 @@ import Footer from './components/Footer'
 
 export default {
   name: 'App',
+  metaInfo: {
+    title: 'Default Title',
+    titleTemplate: '%s • BirdLife Schweiz/Suisse/Svizzera'
+  },
   components: {
     Navigation,
     Footer

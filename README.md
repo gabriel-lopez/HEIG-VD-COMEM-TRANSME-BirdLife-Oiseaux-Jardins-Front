@@ -36,3 +36,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 * [vue-i18n](https://github.com/kazupon/vue-i18n)
 * [vuetify](https://github.com/vuetifyjs/vuetify)
 * [vue-svg](https://github.com/sam3d/vue-svg)
+* [vue-meta](https://github.com/nuxt/vue-meta)

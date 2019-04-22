@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import VuexPersist from 'vuex-persist'
 
 import { BirdModel } from './models/BirdModel'
+import {ParticipationModel} from "./models/ParticipationModel";
 
 Vue.use(Vuex)
 
@@ -15,7 +16,8 @@ const store = new Vuex.Store({
   plugins: [vuexPersist.plugin],
   state: {
     language: 'fr',
-    birds: []
+    birds: [],
+    participation: new ParticipationModel()
   },
   mutations: {
     addBird (state, bird) {
@@ -31,11 +33,24 @@ const store = new Vuex.Store({
     },
     setLanguage (state, lang) {
       state.language = lang
+    },
+    setParticipationDate(state, date) {
+      state.participation.date = date
+    },
+    setParticipationTime(state, time) {
+      state.participation.time = time
+    },
+    setParticipationUser(state, user) {
+      state.participation.user = user
+    },
+    setParticipationUserPlace(state, userPlace) {
+      state.participation.userPlace = userPlace
     }
   },
   getters: {
     birds: state => state.birds,
-    language: state => state.language
+    language: state => state.language,
+    participation: state => state.participation
   }
 })
 

@@ -74,7 +74,6 @@
         </v-layout>
       </v-container>
     </v-flex>
-
   </div>
 </template>
 
@@ -85,6 +84,27 @@
     name: 'home',
     components: {
       Jumbotron
+    },
+    metaInfo() {
+      return {
+        title: this.metaInfo
+      }
+    },
+    data() {
+      return {
+        metaInfo: ""
+      }
+    },
+    watch: {
+      title() {
+        //
+      }
+    },
+    computed : {
+      title () {
+        this.metaInfo = this.$i18n.t('title')
+        return this.metaInfo
+      },
     }
   }
 </script>

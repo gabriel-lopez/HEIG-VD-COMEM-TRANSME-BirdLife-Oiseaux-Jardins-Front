@@ -78,9 +78,9 @@ export default {
     return {
       menu: [
         { icon: 'fa-dove', title: 'birds', link: '/birds' },
-        { icon: 'fa-graduation-cap', title: 'learnwithzozo', link: '/game' },
+        { icon: 'fa-graduation-cap', title: 'learn_with_zozo', link: '/game' },
         { icon: 'fa-binoculars', title: 'participate', link: '/participate' },
-        { icon: 'fa-info-circle', title: 'aboutus', link: '/about' }
+        { icon: 'fa-info-circle', title: 'about_us', link: '/about' }
       ],
       drawer: false
     }
