@@ -1,227 +1,250 @@
 <template>
   <div>
     <v-container>
-
-      <h2>Filtres</h2>
-
-      <!--<v-btn @click.prevent="menuFiltre = !menuFiltre" color="secondary">Filtres</v-btn>-->
-
-      <v-navigation-drawer
-        v-model="menuFiltre"
-        right
-        temporary
-        fixed>
-
-      </v-navigation-drawer>
-
-      <v-layout row>
-
-        <v-flex xs12 sm6 lg4>
-          <v-checkbox
-            v-model="gardenCheckbox"
-            label="Oiseaux de jardin"
-            color="primary"
-
-            hint=""
-            persistent-hint
-          ></v-checkbox>
-        </v-flex>
-
-        <v-flex xs12 sm6 lg4>
-          <v-select
-            multiple
-            chips
-            deletable-chips
-
-            :items="orders"
-
-            label="Ordre"
-
-            item-text="name"
-            item-value="id"
-            item-avatar='<img src="https://randomuser.me/api/portraits/men/35.jpg\"></img>'
-
-            v-model="ordersSelected"
-
-            hint=""
-            persistent-hint
-          >
-          </v-select>
-        </v-flex>
-
-        <v-flex xs12 sm6 lg4>
-          <v-select
-            multiple
-            chips
-            deletable-chips
-            :items="families"
-            label="Famille"
-            item-text="name"
-            item-value="id"
-            v-model="familiesSelected"
-
-            hint=""
-            persistent-hint
-          ></v-select>
-        </v-flex>
-
-        <v-flex xs12 sm6 lg4>
-          <v-select
-            multiple
-            chips
-            deletable-chips
-            :items="habitats"
-            label="Habitat"
-            item-text="name_de"
-            item-value="id"
-            v-model="habitatsSelected"
-
-            hint=""
-            persistent-hint
-          ></v-select>
-        </v-flex>
-
-        <v-flex xs12 sm6 lg4>
-          <v-select
-            multiple
-            chips
-            deletable-chips
-            label="Plumage"
-            :items="colors"
-            v-model="plumageColorsSelected"
-            item-text="name_de"
-            item-value="id"
-            hint=""
-            persistent-hint
-          >
-            <template slot="selection" slot-scope="data">
-              <v-chip
-                close
-                @input="plumageColorsSelected.splice(data.index, 1)"
-              >
-                <v-avatar
-                  :color="data.item.hex"
-                >
-                </v-avatar>
-                {{data.item.name_de}}
-              </v-chip>
-            </template>
-          </v-select>
-        </v-flex>
-
-      </v-layout>
-    <v-layout row>
-        <v-flex xs12 sm6 lg4>
-          <v-select
-            multiple
-            chips
-            deletable-chips
-            label="Pattes"
-            :items="colors"
-            v-model="legsColorsSelected"
-            item-text="name_de"
-            item-value="id"
-            hint=""
-            persistent-hint
-          >
-            <template slot="selection" slot-scope="data">
-              <v-chip
-                close
-                @input="legsColorsSelected.splice(data.index, 1)"
-              >
-                <v-avatar
-                  :color="data.item.hex"
-                >
-                </v-avatar>
-                {{data.item.name_de}}
-              </v-chip>
-            </template>
-          </v-select>
-        </v-flex>
-
-        <v-flex xs12 sm6 lg4>
-          <v-select
-            multiple
-            chips
-            deletable-chips
-            label="Bec"
-            :items="colors"
-            v-model="beakColorslected"
-            item-text="name_de"
-            item-value="id"
-            hint=""
-            persistent-hint
-          >
-            <template slot="selection" slot-scope="data">
-              <v-chip
-                close
-                @input="beakColorslected.splice(data.index, 1)"
-              >
-                <v-avatar
-                  :color="data.item.hex"
-                >
-                </v-avatar>
-                {{data.item.name_de}}
-              </v-chip>
-            </template>
-          </v-select>
-        </v-flex>
-
-        <v-flex xs12 sm6 lg4>
-          <v-select
-            multiple
-            chips
-            deletable-chips
-            label="Bec Forme"
-            :items="beakShapes"
-            v-model="beakShapesSelected"
-            item-text="name_de"
-            item-value="id"
-            hint=""
-            persistent-hint
-          >
-            <template slot="selection" slot-scope="data">
-              <v-chip
-                close
-                @input="beakShapesSelected.splice(data.index, 1)"
-              >
-                <v-avatar
-                  :color="data.item.hex"
-                >
-                </v-avatar>
-                {{data.item.name_de}}
-              </v-chip>
-            </template>
-          </v-select>
-        </v-flex>
-
-        <v-flex xs12 sm6 lg4>
-          <v-select
-            multiple
-            chips
-            deletable-chips
-            label="Tailles"
-            :items="sizes"
-            v-model="sizesSelected"
-            item-text="name_de"
-            item-value="id"
-            hint=""
-            persistent-hint
-          >
-          </v-select>
-
-        </v-flex>
-
-    </v-layout>
-
-      <v-layout row class="text-xs-right">
-        <v-spacer></v-spacer>
-        <p class="text-xs-right">
-          <v-btn @click.prevent="getBirds()" color="primary">Filtrer</v-btn>
-        </p>
-      </v-layout>
-
+      <v-btn @click.prevent="menuFiltre = !menuFiltre" color="secondary">{{$t('filters')}}</v-btn>
     </v-container>
+
+    <v-navigation-drawer
+      v-model="menuFiltre"
+      right
+      temporary
+      fixed>
+
+      <v-toolbar flat>
+        <v-list>
+          <v-list-tile>
+            <v-list-tile-title class="title">
+              {{$t('filters')}}
+            </v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-toolbar>
+
+      <v-divider></v-divider>
+
+      <v-container class="text-xs-center">
+        <v-layout row>
+          <v-flex xs12>
+            <v-checkbox
+              v-model="gardenCheckbox"
+              label="Oiseaux de jardin"
+              color="primary"
+
+              hint=""
+              persistent-hint
+            ></v-checkbox>
+          </v-flex>
+        </v-layout>
+
+        <v-layout row>
+          <v-flex xs12>
+            <v-select
+              multiple
+              chips
+              deletable-chips
+
+              :items="orders"
+
+              label="Ordre"
+
+              item-text="name"
+              item-value="id"
+              item-avatar='<img src="https://randomuser.me/api/portraits/men/35.jpg\"></img>'
+
+              v-model="ordersSelected"
+
+              hint=""
+              persistent-hint
+            >
+            </v-select>
+          </v-flex>
+        </v-layout>
+
+        <v-layout row>
+          <v-flex xs12>
+            <v-select
+              multiple
+              chips
+              deletable-chips
+              :items="families"
+              label="Famille"
+              item-text="name"
+              item-value="id"
+              v-model="familiesSelected"
+
+              hint=""
+              persistent-hint
+            ></v-select>
+          </v-flex>
+        </v-layout>
+
+        <v-layout row>
+          <v-flex xs12>
+            <v-select
+              multiple
+              chips
+              deletable-chips
+              :items="habitats"
+              label="Habitat"
+              item-text="name_de"
+              item-value="id"
+              v-model="habitatsSelected"
+
+              hint=""
+              persistent-hint
+            ></v-select>
+          </v-flex>
+        </v-layout>
+
+        <v-layout row>
+          <v-flex xs12>
+            <v-select
+              multiple
+              chips
+              deletable-chips
+              label="Plumage"
+              :items="colors"
+              v-model="plumageColorsSelected"
+              item-text="name_de"
+              item-value="id"
+              hint=""
+              persistent-hint
+            >
+              <template slot="selection" slot-scope="data">
+                <v-chip
+                  close
+                  @input="plumageColorsSelected.splice(data.index, 1)"
+                >
+                  <v-avatar
+                    :color="data.item.hex"
+                  >
+                  </v-avatar>
+                  {{data.item.name_de}}
+                </v-chip>
+              </template>
+            </v-select>
+          </v-flex>
+        </v-layout>
+
+        <v-layout row>
+          <v-flex xs12>
+            <v-select
+              multiple
+              chips
+              deletable-chips
+              label="Pattes"
+              :items="colors"
+              v-model="legsColorsSelected"
+              item-text="name_de"
+              item-value="id"
+              hint=""
+              persistent-hint
+            >
+              <template slot="selection" slot-scope="data">
+                <v-chip
+                  close
+                  @input="legsColorsSelected.splice(data.index, 1)"
+                >
+                  <v-avatar
+                    :color="data.item.hex"
+                  >
+                  </v-avatar>
+                  {{data.item.name_de}}
+                </v-chip>
+              </template>
+            </v-select>
+          </v-flex>
+        </v-layout>
+
+        <v-layout row>
+          <v-flex xs12>
+            <v-select
+              multiple
+              chips
+              deletable-chips
+              label="Bec"
+              :items="colors"
+              v-model="beakColorslected"
+              item-text="name_de"
+              item-value="id"
+              hint=""
+              persistent-hint
+            >
+              <template slot="selection" slot-scope="data">
+                <v-chip
+                  close
+                  @input="beakColorslected.splice(data.index, 1)"
+                >
+                  <v-avatar
+                    :color="data.item.hex"
+                  >
+                  </v-avatar>
+                  {{data.item.name_de}}
+                </v-chip>
+              </template>
+            </v-select>
+          </v-flex>
+        </v-layout>
+
+        <v-layout row>
+          <v-flex xs12>
+            <v-select
+              multiple
+              chips
+              deletable-chips
+              label="Bec Forme"
+              :items="beakShapes"
+              v-model="beakShapesSelected"
+              item-text="name_de"
+              item-value="id"
+              hint=""
+              persistent-hint
+            >
+              <template slot="selection" slot-scope="data">
+                <v-chip
+                  close
+                  @input="beakShapesSelected.splice(data.index, 1)"
+                >
+                  <v-avatar
+                    :color="data.item.hex"
+                  >
+                  </v-avatar>
+                  {{data.item.name_de}}
+                </v-chip>
+              </template>
+            </v-select>
+          </v-flex>
+        </v-layout>
+
+        <v-layout row>
+          <v-flex xs12>
+            <v-select
+              multiple
+              chips
+              deletable-chips
+              label="Taille"
+              :items="sizes"
+              v-model="sizesSelected"
+              item-text="name_de"
+              item-value="id"
+              hint=""
+              persistent-hint
+            >
+            </v-select>
+          </v-flex>
+        </v-layout>
+
+        <v-layout row column>
+          <v-btn  @click.prevent="resetFilters(); getBirds(); menuFiltre = !menuFiltre;" color="error">{{$t('reset')}}</v-btn>
+        </v-layout>
+
+        <v-layout row column>
+          <v-btn @click.prevent="getBirds(); menuFiltre = !menuFiltre;" color="success">{{$t('filter')}}</v-btn>
+        </v-layout>
+
+      </v-container>
+
+    </v-navigation-drawer>
 
     <v-container
       grid-list-lg
@@ -338,6 +361,17 @@ export default {
           this.numberOfBirds = data.count
           this.pageCount = data.meta.last_page
         })
+    },
+    resetFilters() {
+      this.gardenCheckbox = 1
+      this.ordersSelected = []
+      this.familiesSelected = []
+      this.habitatsSelected = []
+      this.plumageColorsSelected = []
+      this.legsColorsSelected = []
+      this.beakColorslected = []
+      this.beakShapesSelected = []
+      this.sizesSelected = []
     },
     getOrders () {
       API.getOrders().then((data) => {

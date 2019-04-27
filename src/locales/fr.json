@@ -38,5 +38,9 @@
   "next": "Suivant",
   "previous": "Précédant",
   "send": "Envoyer",
-  "close": "Fermer"
+  "close": "Fermer",
+
+  "reset": "Reset",
+  "filter": "Filtrer",
+  "filters": "Filtres"
 }

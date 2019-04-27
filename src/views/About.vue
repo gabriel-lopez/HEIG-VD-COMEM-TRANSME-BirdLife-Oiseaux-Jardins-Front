@@ -44,7 +44,7 @@
     },
     computed : {
       title () {
-        this.metaInfo = this.$i18n.t('aboutus')
+        this.metaInfo = this.$i18n.t('about_us')
         return this.metaInfo
       },
     },
