@@ -1,9 +1,5 @@
 <template>
   <div>
-    <v-container>
-      <v-btn @click.prevent="menuFiltre = !menuFiltre" color="secondary">{{$t('filters')}}</v-btn>
-    </v-container>
-
     <v-navigation-drawer
       v-model="menuFiltre"
       right
@@ -245,6 +241,21 @@
       </v-container>
 
     </v-navigation-drawer>
+
+    <v-container pb-0>
+      <v-layout row>
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="message"
+          outline
+          clearable
+          label="Message"
+          type="text"
+        >
+        </v-text-field>
+        <v-btn @click.prevent="menuFiltre = !menuFiltre" color="secondary">{{$t('filters')}}</v-btn>
+      </v-layout>
+    </v-container>
 
     <v-container
       grid-list-lg

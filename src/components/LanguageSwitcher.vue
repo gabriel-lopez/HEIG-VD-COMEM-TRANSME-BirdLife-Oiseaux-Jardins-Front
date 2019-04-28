@@ -9,13 +9,13 @@
 
     <template slot="selection" slot-scope="data">
       <v-avatar>
-        <img :src="imagePath(data.item)" alt="avatar">
+        <img :src="imagePath(data.item)">
       </v-avatar>
     </template>
 
     <template slot="item" slot-scope="data">
       <v-list-tile-avatar>
-        <img :src="imagePath(data.item)" alt="avatar">
+        <img :src="imagePath(data.item)">
       </v-list-tile-avatar>
       <v-list-tile-content>
         <v-list-tile-title v-html="data.item"></v-list-tile-title>
