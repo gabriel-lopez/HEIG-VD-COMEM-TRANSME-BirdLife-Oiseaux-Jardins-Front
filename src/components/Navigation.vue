@@ -60,6 +60,31 @@
             <v-list-tile-title>{{ $t(item.title) }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+
+        <v-layout
+          p-1
+          row
+          wrap
+          class="text-xs-center">
+          <v-flex xs-4>
+            <v-avatar
+              @click="currentLanguage = 'de'">
+              <img src='@/assets/flags/de.svg'>
+            </v-avatar>
+          </v-flex>
+          <v-flex xs-4>
+            <v-avatar
+              @click="currentLanguage = 'fr'">
+              <img src='@/assets/flags/fr.svg'>
+            </v-avatar>
+          </v-flex>
+          <v-flex xs-4>
+            <v-avatar
+              @click="currentLanguage = 'it'">
+              <img src='@/assets/flags/it.svg'>
+            </v-avatar>
+          </v-flex>
+        </v-layout>
       </v-list >
       <v-spacer></v-spacer>
     </v-navigation-drawer>
@@ -89,6 +114,17 @@ export default {
     onResize () {
       if (this.drawer) {
         console.log('open')
+      }
+    }
+  },
+  computed: {
+    currentLanguage: {
+      get () {
+        return this.$store.state.language
+      },
+      set (value) {
+        this.$store.commit('setLanguage', value)
+        this.$i18n.locale = value
       }
     }
   }

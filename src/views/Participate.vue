@@ -35,7 +35,7 @@
                     pa-0
                     primary-title>
                     <div >
-                      <h4 class="caption ">{{bird.name_fr}}</h4>
+                      <h4 class="caption text-truncate">{{bird.name_fr}}</h4>
                     </div>
                   </v-card-title>
                 </v-card>
@@ -268,6 +268,7 @@
           <v-checkbox
             color="primary"
             v-model="participationNewsletter.checkbox1"
+            @change="update(participationNewsletter, 'checkbox1', $event)"
             label="Oui, je souhaiterais plus d‘infos de BirdLife Suisse."></v-checkbox>
           <v-checkbox
             color="primary"
@@ -305,16 +306,16 @@
 </template>
 
 <script>
-import {UserModel} from "../models/UserModel";
+import * as Vue from 'vue'
 
 export default {
   name: 'Participate',
-  metaInfo() {
+  metaInfo () {
     return {
       title: this.metaInfo
     }
   },
-  data() {
+  data () {
     return {
       step: 1,
       snackbar: false,
@@ -322,7 +323,7 @@ export default {
       snackbarText: '',
       datePickerEvent: false,
       timePickerEvent: false,
-      metaInfo: "",
+      metaInfo: ''
     }
   },
   watch: {
@@ -340,6 +341,14 @@ export default {
         }
         this.snackbar = true
       })
+    },
+    update: function (obj, prop, event) {
+      if (event.target.value === undefined) {
+        console.log(event)
+      } else {
+        console.log(event.target.value)
+      }
+      // Vue.set(obj, prop, event.target.value)
     }
   },
   computed: {
@@ -383,9 +392,6 @@ export default {
     participationNewsletter: {
       get () {
         return this.$store.state.participation.newsletter
-      },
-      set (value) {
-        this.$store.commit('setParticipationUserPlace', value)
       }
     },
     title () {
@@ -395,7 +401,7 @@ export default {
   },
   mounted () {
     console.log('Participate mounted')
-  },
+  }
 }
 </script>
 

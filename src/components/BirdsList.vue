@@ -244,23 +244,45 @@
 
     <v-container pb-0>
       <v-layout row>
-        <v-spacer></v-spacer>
         <v-text-field
-          v-model="message"
+          v-model="birdName"
           outline
           clearable
-          label="Message"
+          label="Chercher"
           type="text"
+          append-icon="search"
+          @click:append="getBirds()"
+          @click:clear="clearBirdName(); getBirds();"
         >
         </v-text-field>
-        <v-btn @click.prevent="menuFiltre = !menuFiltre" color="secondary">{{$t('filters')}}</v-btn>
+        <div class="padding-5">
+          <v-btn
+            mt-10
+            round
+            @click.prevent="menuFiltre = !menuFiltre"
+            color="secondary">
+            <v-icon left>menu</v-icon>
+            {{$t('filters')}}
+          </v-btn>
+        </div>
       </v-layout>
     </v-container>
 
     <v-container
-      grid-list-lg
+      class="text-xs-center"
+      pt-0
     >
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        :dark=false>
+      </v-pagination>
+    </v-container>
 
+    <v-container
+      grid-list-lg
+      pt-0
+    >
       <v-layout row wrap>
         <v-flex xs12 sm6 lg3 v-for="bird in birds" :key="bird.id">
 
@@ -274,7 +296,7 @@
 
             <v-card-title primary-title>
               <div>
-                <h3 class="headline mb-0">{{bird.name_fr}}</h3>
+                <h3 class="title mb-0 text-no-wrap text-truncate">{{bird.name_fr}}</h3>
               </div>
             </v-card-title>
 
@@ -288,14 +310,16 @@
       <Bird :visible="showBirdDialog" :birdId="birdId" @close="showBirdDialog=false"></Bird>
     </v-container>
 
-    <div class="text-xs-center">
+    <v-container
+      class="text-xs-center"
+      pt-0
+    >
       <v-pagination
         v-model="page"
         :length="pageCount"
         :dark=false>
       </v-pagination>
-    </div>
-
+    </v-container>
   </div>
 </template>
 
@@ -341,7 +365,9 @@ export default {
       beakShapesSelected: [],
 
       sizes: [],
-      sizesSelected: []
+      sizesSelected: [],
+
+      birdName: ''
     }
   },
   mounted () {
@@ -365,7 +391,7 @@ export default {
         this.beakColorslected.join(),
         this.beakShapesSelected.join(),
         this.sizesSelected.join(),
-        '',
+        this.birdName,
         page)
         .then((data) => {
           this.birds = data.data
@@ -373,7 +399,7 @@ export default {
           this.pageCount = data.meta.last_page
         })
     },
-    resetFilters() {
+    resetFilters () {
       this.gardenCheckbox = 1
       this.ordersSelected = []
       this.familiesSelected = []
@@ -383,6 +409,10 @@ export default {
       this.beakColorslected = []
       this.beakShapesSelected = []
       this.sizesSelected = []
+      this.birdName = ''
+    },
+    clearBirdName () {
+      this.birdName = ''
     },
     getOrders () {
       API.getOrders().then((data) => {
@@ -424,5 +454,7 @@ export default {
 </script>
 
 <style scoped>
-
+.padding-5 {
+  padding-top: 5px;
+}
 </style>

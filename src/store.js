@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import VuexPersist from 'vuex-persist'
 
 import { BirdModel } from './models/BirdModel'
-import {ParticipationModel} from "./models/ParticipationModel";
+import { ParticipationModel } from './models/ParticipationModel'
 
 Vue.use(Vuex)
 
@@ -34,16 +34,16 @@ const store = new Vuex.Store({
     setLanguage (state, lang) {
       state.language = lang
     },
-    setParticipationDate(state, date) {
+    setParticipationDate (state, date) {
       state.participation.date = date
     },
-    setParticipationTime(state, time) {
+    setParticipationTime (state, time) {
       state.participation.time = time
     },
-    setParticipationUser(state, user) {
+    setParticipationUser (state, user) {
       state.participation.user = user
     },
-    setParticipationUserPlace(state, userPlace) {
+    setParticipationUserPlace (state, userPlace) {
       state.participation.userPlace = userPlace
     }
   },
