@@ -32,7 +32,7 @@
           <v-carousel-item
             v-for="(picture,id) in bird.pictures"
             :key="id"
-            :src="`http://localhost:8000/pictures/${picture.filename}`"
+            :src="`/pictures/${picture.filename}`"
             reverse-transition="fade"
             transition="fade"
           ></v-carousel-item>
@@ -43,6 +43,7 @@
         {{bird.family}}
         {{bird.order}}
         -->
+        <iframe :src="`https://www.xeno-canto.org/${bird.singing_xeno_canto_id}/embed?simple=1' scrolling='no' frameborder='0' width='340' height='115'`"></iframe>
       </v-card>
 
     </v-dialog>

@@ -40,11 +40,34 @@ const store = new Vuex.Store({
     setParticipationTime (state, time) {
       state.participation.time = time
     },
-    setParticipationUser (state, user) {
-      state.participation.user = user
+    setParticipationNpa (state, npa) {
+      state.participation.npa = npa
     },
-    setParticipationUserPlace (state, userPlace) {
-      state.participation.userPlace = userPlace
+    setParticipationCity (state, city) {
+      state.participation.city = city
+    },
+
+    setParticipationName (state, name) {
+      state.participation.name = name
+    },
+    setParticipationSurname (state, surname) {
+      state.participation.surname = surname
+    },
+    setParticipationEmail (state, email) {
+      state.participation.email = email
+    },
+    setParticipationBirthday (state, birthday) {
+      state.participation.birthday = birthday
+    },
+
+    setParticipationNewsletter (state, value) {
+      state.participation.newsletter = value
+    },
+    setParticipationNewMember (state, value) {
+      state.participation.newmember = value
+    },
+    setParticipationOrder (state, value) {
+      state.participation.order = value
     }
   },
   getters: {

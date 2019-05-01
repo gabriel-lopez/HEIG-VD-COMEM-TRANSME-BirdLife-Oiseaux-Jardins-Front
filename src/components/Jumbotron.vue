@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="@/assets/banniere.svg">
+    <img src="@/assets/banniere2019.svg">
     <br/>
   </div>
 </template>

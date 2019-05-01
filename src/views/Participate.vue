@@ -69,38 +69,13 @@
               <v-layout row wrap>
                 <v-flex xs12 md6>
                   <v-checkbox
+                    v-for="feature in features" :key="features.id"
                     color="primary"
-                    label="Bcp. d‘arbustes indigènes"></v-checkbox>
-                  <v-checkbox
-                    color="primary"
-                    label="Bcp. d‘arbustes exotiques"></v-checkbox>
-                  <v-checkbox
-                    color="primary"
-                    label="Arbres indigènes"></v-checkbox>
-                  <v-checkbox
-                    color="primary"
-                    label="Arbres exotiques"></v-checkbox>
-                  <v-checkbox
-                    color="primary"
-                    label="Prairie fleurie">
+                    hide-details
+                    v-bind:label="$eval(feature)">
                   </v-checkbox>
                 </v-flex>
                 <v-flex xs12 md6>
-                  <v-checkbox
-                    color="primary"
-                    label="Gazon"></v-checkbox>
-                  <v-checkbox
-                    color="primary"
-                    label="Étang"></v-checkbox>
-                  <v-checkbox
-                    color="primary"
-                    label="Nichoir"></v-checkbox>
-                  <v-checkbox
-                    color="primary"
-                    label="Surface de gravier/sable"></v-checkbox>
-                  <v-checkbox
-                    color="primary"
-                    label="Tas de bois"></v-checkbox>
                 </v-flex>
               </v-layout>
             </v-flex>
@@ -174,7 +149,7 @@
                   <v-text-field
                     name="participation.place.npa"
                     :label="this.$t('postcode')"
-                    v-model="participationUserPlace.npa"
+                    v-model="participationNpa"
                     v-validate="'required'"
                     :error-messages="errors.collect('participation.place.npa')">
                   </v-text-field>
@@ -183,7 +158,7 @@
                   <v-text-field
                     name="participation.place.city"
                     :label="this.$t('city')"
-                    v-model="participationUserPlace.city"
+                    v-model="participationCity"
                     v-validate="'required'"
                     :error-messages="errors.collect('participation.place.city')">
                   </v-text-field>
@@ -214,7 +189,7 @@
               <v-text-field
                 name="name"
                 :label="this.$t('name')"
-                v-model="participationUser.name"
+                v-model="participationName"
                 v-validate="'required'"
                 :error-messages="errors.collect('name')">
               </v-text-field>
@@ -223,7 +198,7 @@
               <v-text-field
                 name="surname"
                 :label="this.$t('first_name')"
-                v-model="participationUser.surname"
+                v-model="participationSurname"
                 v-validate="'required'"
                 :error-messages="errors.collect('surname')">
               </v-text-field>
@@ -235,7 +210,7 @@
               <v-text-field
                 name="email"
                 :label="this.$t('email')"
-                v-model="participationUser.email"
+                v-model="participationEmail"
                 v-validate="'required|email'"
                 :error-messages="errors.collect('email')">
               </v-text-field>
@@ -244,7 +219,7 @@
               <v-text-field
                 name="birthday"
                 :label="this.$t('birthday')"
-                v-model="participationUser.birthday"
+                v-model="participationBirthday"
                 v-validate="'required'"
                 :error-messages="errors.collect('birthday')">
               </v-text-field>
@@ -267,17 +242,16 @@
         <v-container>
           <v-checkbox
             color="primary"
-            v-model="participationNewsletter.checkbox1"
-            @change="update(participationNewsletter, 'checkbox1', $event)"
-            label="Oui, je souhaiterais plus d‘infos de BirdLife Suisse."></v-checkbox>
+            v-model="participationNewsletter"
+            :label="$t('participation_newsletter')"></v-checkbox>
           <v-checkbox
             color="primary"
-            v-model="participationNewsletter.checkbox2"
-            label="J‘aimerais devenir membre de BirdLife Suisse (Cotisation annuelle Fr. 50.– , comprend le journal «Info BirdLife Suisse»)"></v-checkbox>
+            v-model="participationNewMember"
+            :label="$t('participation_new_member')"></v-checkbox>
           <v-checkbox
             color="primary"
-            v-model="participationNewsletter.checkbox3"
-            label="Je commande la brochure «Action Oiseaux de nos jardins» (gratuite pour ceux qui communiquent leurs observations, ex. supplémentaires Fr. 4.–)"></v-checkbox>
+            v-model="participationOrder"
+            :label="$t('participation_order')"></v-checkbox>
         </v-container>
         <div>
           <v-btn flat @click="step = 3">{{$t('previous')}}</v-btn>
@@ -288,12 +262,11 @@
 
     <v-snackbar
       v-model="snackbar"
-      color="success"
+      :color="snackbarColor"
       :timeout="1500"
       vertical
     >
       {{ snackbarText }}
-      {{$t('thank_you_for_your_participation')}}
       <v-btn
         dark
         flat
@@ -306,9 +279,9 @@
 </template>
 
 <script>
-import * as Vue from 'vue'
+  import {API} from "../api";
 
-export default {
+  export default {
   name: 'Participate',
   metaInfo () {
     return {
@@ -323,35 +296,82 @@ export default {
       snackbarText: '',
       datePickerEvent: false,
       timePickerEvent: false,
-      metaInfo: ''
+      metaInfo: '',
+
+      features: [],
+
+      participationName: '',
+      participationSurname: '',
+      participationEmail: '',
+      participationBirthday: '',
+
+      participationUserStreet: '',
+      participationUserstreetNo: '',
+      participationUserNpa: '',
+      participationUserCity: '',
+
+      participationNewsletter: '',
+      participationNewMember: '',
+      participationOrder: ''
     }
   },
-  watch: {
-    title () {
-      //
-    }
+  mounted () {
+    console.log('Participate mounted')
+    this.getFeatures();
   },
   methods: {
+    $eval (feature) {
+      return eval("feature.name_" + this.currentLanguage)
+    },
     submit () {
-      this.$validator.validate().then(result => {
-        if (result) {
-          this.snackbarColor = 'success'
-        } else {
-          this.snackbarColor = 'error'
-        }
-        this.snackbar = true
+      this.postParticipation()
+    },
+    getFeatures () {
+      API.getFeatures().then((data) => {
+        this.features = data
       })
     },
-    update: function (obj, prop, event) {
-      if (event.target.value === undefined) {
-        console.log(event)
-      } else {
-        console.log(event.target.value)
-      }
-      // Vue.set(obj, prop, event.target.value)
-    }
+    postParticipation () {
+      this.$validator.validate().then(result => {
+        if (!result) {
+          return
+        }
+        API.postParticipation(
+          this.birds,
+
+          this.participationDate,
+          this.participationTime,
+          this.participationNpa,
+          this.participationCity,
+          null,
+
+          this.participationName,
+          this.participationSurname,
+          this.participationEmail,
+          this.participationBirthday,
+
+          this.participationNewsletter,
+          this.participationNewMember,
+          this.participationOrder
+
+          ).then(() => {
+            this.snackbarColor = 'success'
+            this.snackbar = true
+            this.snackbarText = this.$t('thank_you_for_your_participation')
+        }).catch(() => {
+          this.snackbarColor = 'error'
+          this.snackbar = true
+          this.snackbarText = this.$t('error_on_participation')
+        })
+      })
+    },
   },
   computed: {
+    currentLanguage: {
+      get () {
+        return this.$store.state.language
+      }
+    },
     birds () {
       return this.$store.state.birds
     },
@@ -360,7 +380,6 @@ export default {
         return this.$store.state.participation.date
       },
       set (value) {
-        console.log(value)
         this.$store.commit('setParticipationDate', value)
       }
     },
@@ -372,35 +391,26 @@ export default {
         this.$store.commit('setParticipationTime', value)
       }
     },
-    participationUser: {
+    participationNpa: {
       get () {
-        return this.$store.state.participation.user
+        return this.$store.state.participation.npa
       },
       set (value) {
-        console.log(value)
-        this.$store.commit('setParticipationUser', value)
+        this.$store.commit('setParticipationNpa', value)
       }
     },
-    participationUserPlace: {
+    participationCity: {
       get () {
-        return this.$store.state.participation.userPlace
+        return this.$store.state.participation.city
       },
       set (value) {
-        this.$store.commit('setParticipationUserPlace', value)
-      }
-    },
-    participationNewsletter: {
-      get () {
-        return this.$store.state.participation.newsletter
+        this.$store.commit('setParticipationCity', value)
       }
     },
     title () {
       this.metaInfo = this.$i18n.t('participate')
       return this.metaInfo
     }
-  },
-  mounted () {
-    console.log('Participate mounted')
   }
 }
 </script>

@@ -18,6 +18,7 @@
   "subscribe_to_the_newsletter_small": "",
 
   "thank_you_for_your_participation": "Merci de votre participation !",
+  "error_on_participation": "Merci de verifier les données du formulaires !",
 
   "on_my_observation_site_there_are_many": "Sur mon lieu d'observation, il y a beaucoup de",
 
@@ -42,5 +43,9 @@
 
   "reset": "Reset",
   "filter": "Filtrer",
-  "filters": "Filtres"
+  "filters": "Filtres",
+
+  "participation_newsletter" : "Oui, je souhaiterais plus d‘infos de BirdLife Suisse.",
+  "participation_new_member" : "J‘aimerais devenir membre de BirdLife Suisse (Cotisation annuelle Fr. 50.– , comprend le journal «Info BirdLife Suisse»)",
+  "participation_order" : "Je commande la brochure «Action Oiseaux de nos jardins» (gratuite pour ceux qui communiquent leurs observations, ex. supplémentaires Fr. 4.–)"
 }

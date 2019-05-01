@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:8000'
+const API_URL = 'https://oiseaux-de-nos-jardins.birdlife.ch'
 
 export class API {
   static getBirds (pGarden, pOrder, pFamily, pHabitat, pPlumageColor, pLegsColor, pBeakColor, pBeakShape, pSize, pName, page = 1) {
@@ -55,5 +55,31 @@ export class API {
   static getSizes () {
     const url = `${API_URL}/api/sizes/`
     return axios.get(url).then(response => response.data)
+  }
+
+  static getFeatures () {
+    const url = `${API_URL}/api/features/`
+    return axios.get(url).then(response => response.data)
+  }
+
+  static postParticipation (pBirds, pObservation_day, pObservation_time, pObservation_npa, pObservation_city, pObservation_features, pName, pSurname, pEmail, pBirthday, pNewsletter, pNewmember, pOrder) {
+    const url = `${API_URL}/api/submissions/`
+    return axios.post(url, {
+      observation_day: pObservation_day,
+      observation_time: pObservation_time,
+      observation_npa: pObservation_npa,
+      observation_city: pObservation_city,
+      observation_features: pObservation_features,
+
+      name: pName,
+      surname: pSurname,
+      email: pEmail,
+      birthday: pBirthday,
+      newsletter: pNewsletter,
+      newmember: pNewmember,
+      order: pOrder,
+
+      birds: pBirds,
+    }).then(response => response.data)
   }
 }

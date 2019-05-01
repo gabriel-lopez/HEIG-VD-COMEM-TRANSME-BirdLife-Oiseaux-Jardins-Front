@@ -290,13 +290,13 @@
 
             <v-img
               v-if="bird.pictures.length > 0"
-              :src="`http://localhost:8000/pictures/${bird.pictures[0].filename}`"
+              :src="`/pictures/${bird.pictures[0].filename}`"
               aspect-ratio="1.5"
             ></v-img>
 
             <v-card-title primary-title>
               <div>
-                <h3 class="title mb-0 text-no-wrap text-truncate">{{bird.name_fr}}</h3>
+                <h3 class="title mb-0 text-no-wrap text-truncate">{{$eval(bird)}}</h3>
               </div>
             </v-card-title>
 
@@ -380,6 +380,9 @@ export default {
     this.getSizes()
   },
   methods: {
+    $eval (bird) {
+      return eval("bird.name_" + this.currentLanguage)
+    },
     getBirds (page = 1) {
       API.getBirds(
         this.gardenCheckbox ? 1 : 0,
@@ -448,6 +451,13 @@ export default {
   watch: {
     page: function (page) {
       this.getBirds(page)
+    }
+  },
+  computed: {
+    currentLanguage: {
+      get () {
+        return this.$store.state.language
+      }
     }
   }
 }
