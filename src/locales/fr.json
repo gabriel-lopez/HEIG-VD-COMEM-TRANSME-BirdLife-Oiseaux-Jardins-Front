@@ -45,6 +45,16 @@
   "filter": "Filtrer",
   "filters": "Filtres",
 
+  "filter_bird_garden" : "Oiseaux de jardin",
+  "filter_bird_order" : "",
+  "filter_bird_family": "",
+  "filter_bird_habitat": "",
+  "filter_bird_plumage": "",
+  "filter_bird_legs": "",
+  "filter_bird_beak_color": "",
+  "filter_bird_beak_shape": "",
+  "filter_bird_size": "",
+
   "participation_newsletter" : "Oui, je souhaiterais plus d‘infos de BirdLife Suisse.",
   "participation_new_member" : "J‘aimerais devenir membre de BirdLife Suisse (Cotisation annuelle Fr. 50.– , comprend le journal «Info BirdLife Suisse»)",
   "participation_order" : "Je commande la brochure «Action Oiseaux de nos jardins» (gratuite pour ceux qui communiquent leurs observations, ex. supplémentaires Fr. 4.–)"

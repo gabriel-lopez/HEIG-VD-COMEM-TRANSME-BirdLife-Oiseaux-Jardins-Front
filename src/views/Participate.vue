@@ -28,7 +28,7 @@
                   @click.native="birdId=bird.id; showBirdDialog=true">
                   <v-img
                     v-if="bird.picture"
-                    :src="`http://localhost:8000/pictures/${bird.picture}`"
+                    :src="`/pictures/${bird.picture}`"
                     aspect-ratio="1.5"
                   ></v-img>
                   <v-card-title

@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <Unity src="/game/web_prod_build_170419.json" width="1280" height="720" unityLoader="/game/UnityLoader.js"></Unity>
+    <Unity src="/game/WebGL_Build.json" width="1280" height="720" unityLoader="/game/UnityLoader.js"></Unity>
   </v-container>
 </template>
 

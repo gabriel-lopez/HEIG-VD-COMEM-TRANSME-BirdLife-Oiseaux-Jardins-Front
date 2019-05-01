@@ -25,7 +25,6 @@
               v-model="gardenCheckbox"
               label="Oiseaux de jardin"
               color="primary"
-
               hint=""
               persistent-hint
             ></v-checkbox>
@@ -40,12 +39,10 @@
               deletable-chips
 
               :items="orders"
-
               label="Ordre"
 
               item-text="name"
               item-value="id"
-              item-avatar='<img src="https://randomuser.me/api/portraits/men/35.jpg\"></img>'
 
               v-model="ordersSelected"
 
@@ -82,10 +79,9 @@
               deletable-chips
               :items="habitats"
               label="Habitat"
-              item-text="name_de"
+              item-text="name_fr"
               item-value="id"
               v-model="habitatsSelected"
-
               hint=""
               persistent-hint
             ></v-select>
@@ -101,7 +97,7 @@
               label="Plumage"
               :items="colors"
               v-model="plumageColorsSelected"
-              item-text="name_de"
+              item-text="name_fr"
               item-value="id"
               hint=""
               persistent-hint
@@ -131,7 +127,7 @@
               label="Pattes"
               :items="colors"
               v-model="legsColorsSelected"
-              item-text="name_de"
+              item-text="name_fr"
               item-value="id"
               hint=""
               persistent-hint
@@ -161,7 +157,7 @@
               label="Bec"
               :items="colors"
               v-model="beakColorslected"
-              item-text="name_de"
+              item-text="name_fr"
               item-value="id"
               hint=""
               persistent-hint
@@ -191,11 +187,17 @@
               label="Bec Forme"
               :items="beakShapes"
               v-model="beakShapesSelected"
-              item-text="name_de"
+              item-text="name_fr"
               item-value="id"
               hint=""
               persistent-hint
             >
+              <!--<template slot="item" slot-scope="data">
+                {{$eval(data, "data.item.name_")}}
+                <v-checkbox>
+
+                </v-checkbox>
+              </template> -->
               <template slot="selection" slot-scope="data">
                 <v-chip
                   close
@@ -205,7 +207,8 @@
                     :color="data.item.hex"
                   >
                   </v-avatar>
-                  {{data.item.name_de}}
+
+                  {{$eval(data, "data.item.name_")}}
                 </v-chip>
               </template>
             </v-select>
@@ -221,7 +224,7 @@
               label="Taille"
               :items="sizes"
               v-model="sizesSelected"
-              item-text="name_de"
+              item-text="name_fr"
               item-value="id"
               hint=""
               persistent-hint
@@ -296,7 +299,7 @@
 
             <v-card-title primary-title>
               <div>
-                <h3 class="title mb-0 text-no-wrap text-truncate">{{$eval(bird)}}</h3>
+                <h3 class="title mb-0 text-no-wrap text-truncate">{{$eval(bird, "data.name_")}}</h3>
               </div>
             </v-card-title>
 
@@ -380,8 +383,8 @@ export default {
     this.getSizes()
   },
   methods: {
-    $eval (bird) {
-      return eval("bird.name_" + this.currentLanguage)
+    $eval (data, variable) {
+      return eval(variable + this.currentLanguage)
     },
     getBirds (page = 1) {
       API.getBirds(
