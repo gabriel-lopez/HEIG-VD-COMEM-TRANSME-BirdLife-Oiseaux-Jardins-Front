@@ -102,6 +102,7 @@ export default {
   data () {
     return {
       menu: [
+        { icon: 'fa-house', title: 'home', link: '/' },
         { icon: 'fa-dove', title: 'birds', link: '/birds' },
         { icon: 'fa-graduation-cap', title: 'learn_with_zozo', link: '/game' },
         { icon: 'fa-binoculars', title: 'participate', link: '/participate' },

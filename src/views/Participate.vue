@@ -35,7 +35,7 @@
                     pa-0
                     primary-title>
                     <div >
-                      <h4 class="caption text-truncate">{{bird.name_fr}}</h4>
+                      <h4 class="caption text-truncate">{{bird["name_" + currentLanguage]}}</h4>
                     </div>
                   </v-card-title>
                 </v-card>
@@ -72,7 +72,7 @@
                     v-for="feature in features" :key="features.id"
                     color="primary"
                     hide-details
-                    v-bind:label="$eval(feature)">
+                    :label="feature['name_' + currentLanguage]">
                   </v-checkbox>
                 </v-flex>
                 <v-flex xs12 md6>
@@ -279,9 +279,9 @@
 </template>
 
 <script>
-  import {API} from "../api";
+import { API } from '../api'
 
-  export default {
+export default {
   name: 'Participate',
   metaInfo () {
     return {
@@ -317,12 +317,9 @@
   },
   mounted () {
     console.log('Participate mounted')
-    this.getFeatures();
+    this.getFeatures()
   },
   methods: {
-    $eval (feature) {
-      return eval("feature.name_" + this.currentLanguage)
-    },
     submit () {
       this.postParticipation()
     },
@@ -354,17 +351,17 @@
           this.participationNewMember,
           this.participationOrder
 
-          ).then(() => {
-            this.snackbarColor = 'success'
-            this.snackbar = true
-            this.snackbarText = this.$t('thank_you_for_your_participation')
+        ).then(() => {
+          this.snackbarColor = 'success'
+          this.snackbar = true
+          this.snackbarText = this.$t('thank_you_for_your_participation')
         }).catch(() => {
           this.snackbarColor = 'error'
           this.snackbar = true
           this.snackbarText = this.$t('error_on_participation')
         })
       })
-    },
+    }
   },
   computed: {
     currentLanguage: {

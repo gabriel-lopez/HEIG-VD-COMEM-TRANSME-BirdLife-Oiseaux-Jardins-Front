@@ -23,7 +23,7 @@
           <v-flex xs12>
             <v-checkbox
               v-model="gardenCheckbox"
-              label="Oiseaux de jardin"
+              :label="this.$t('filter_bird_garden')"
               color="primary"
               hint=""
               persistent-hint
@@ -37,15 +37,11 @@
               multiple
               chips
               deletable-chips
-
               :items="orders"
-              label="Ordre"
-
+              :label="this.$t('filter_bird_order')"
               item-text="name"
               item-value="id"
-
               v-model="ordersSelected"
-
               hint=""
               persistent-hint
             >
@@ -60,11 +56,10 @@
               chips
               deletable-chips
               :items="families"
-              label="Famille"
+              :label="this.$t('filter_bird_family')"
               item-text="name"
               item-value="id"
               v-model="familiesSelected"
-
               hint=""
               persistent-hint
             ></v-select>
@@ -78,7 +73,7 @@
               chips
               deletable-chips
               :items="habitats"
-              label="Habitat"
+              :label="this.$t('filter_bird_habitat')"
               item-text="name_fr"
               item-value="id"
               v-model="habitatsSelected"
@@ -94,7 +89,7 @@
               multiple
               chips
               deletable-chips
-              label="Plumage"
+              :label="this.$t('filter_bird_plumage')"
               :items="colors"
               v-model="plumageColorsSelected"
               item-text="name_fr"
@@ -124,7 +119,7 @@
               multiple
               chips
               deletable-chips
-              label="Pattes"
+              :label="this.$t('filter_bird_legs')"
               :items="colors"
               v-model="legsColorsSelected"
               item-text="name_fr"
@@ -154,7 +149,7 @@
               multiple
               chips
               deletable-chips
-              label="Bec"
+              :label="this.$t('filter_bird_beak_color')"
               :items="colors"
               v-model="beakColorslected"
               item-text="name_fr"
@@ -184,7 +179,7 @@
               multiple
               chips
               deletable-chips
-              label="Bec Forme"
+              :label="this.$t('filter_bird_beak_shape')"
               :items="beakShapes"
               v-model="beakShapesSelected"
               item-text="name_fr"
@@ -221,7 +216,7 @@
               multiple
               chips
               deletable-chips
-              label="Taille"
+              :label="this.$t('filter_bird_size')"
               :items="sizes"
               v-model="sizesSelected"
               item-text="name_fr"
@@ -251,7 +246,7 @@
           v-model="birdName"
           outline
           clearable
-          label="Chercher"
+          :label="this.$t('search')"
           type="text"
           append-icon="search"
           @click:append="getBirds()"
@@ -299,7 +294,7 @@
 
             <v-card-title primary-title>
               <div>
-                <h3 class="title mb-0 text-no-wrap text-truncate">{{$eval(bird, "data.name_")}}</h3>
+                <h3 class="title mb-0 text-no-wrap text-truncate">{{bird["name_" + currentLanguage]}}</h3>
               </div>
             </v-card-title>
 
@@ -383,9 +378,6 @@ export default {
     this.getSizes()
   },
   methods: {
-    $eval (data, variable) {
-      return eval(variable + this.currentLanguage)
-    },
     getBirds (page = 1) {
       API.getBirds(
         this.gardenCheckbox ? 1 : 0,
