@@ -34,14 +34,19 @@
               <div>
                 <h3 class="headline mb-0">Centre-nature</h3>
                 <div>
-                  <p>Le Centre-nature BirdLife de la Sauge aux abords de la rive sud-est du lac de Neuchâtel est vrai petit paradis pour les oiseaux. Ainsi, depuis sa création, plus de 200 espèces y ont été aperçues!</p>
+                  <p>Le Centre-nature BirdLife de la Sauge aux abords de la rive sud-est du lac de Neuchâtel est un vrai petit paradis pour les oiseaux. Ainsi, depuis sa création, plus de 200 espèces y ont été aperçues!</p>
                 </div>
               </div>
             </v-card-title>
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn flat color="primary">en savoir plus</v-btn>
+              <v-btn
+                flat
+                color="primary"
+                href="https://www.birdlife.ch/" target="_blank">
+                {{$t('more_about_it')}}
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -56,15 +61,19 @@
               <div>
                 <h3 class="headline mb-0">Amélioration de la politique agricole</h3>
                 <div>
-                  <p>Dans le canton de Bâle-Campagne, la plantation de plusieurs arbres fruitiers a permis aux pie-grièches de s’installer en milieu agricole et leur nombre augmenté.</p>
-
+                  <p>Dans le canton de Bâle-Campagne, la plantation de plusieurs arbres fruitiers a permis aux pie-grièches de s’installer en milieu agricole et leur nombre a augmenté.</p>
                 </div>
               </div>
             </v-card-title>
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn flat color="primary">en savoir plus</v-btn>
+              <v-btn
+                flat
+                color="primary"
+                href="https://www.birdlife.ch/" target="_blank">
+                {{$t('more_about_it')}}
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -86,7 +95,12 @@
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn flat color="primary">en savoir plus</v-btn>
+              <v-btn
+                flat
+                color="primary"
+                href="https://www.birdlife.ch/" target="_blank">
+                {{$t('more_about_it')}}
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>

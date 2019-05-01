@@ -19,7 +19,7 @@
         <v-container
           grid-list-lg>
           <v-layout row wrap>
-            <v-flex xs4 sm3 lg3 v-for="bird in birds" :key="bird.id">
+            <v-flex xs6 sm3 lg2 v-for="bird in birds" :key="bird.id">
               <v-badge right overlap>
                 <template v-slot:badge>
                   <span>{{bird.counter}}</span>
@@ -38,6 +38,15 @@
                       <h4 class="caption text-truncate">{{bird["name_" + currentLanguage]}}</h4>
                     </div>
                   </v-card-title>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      flat
+                      color="primary"
+                      @click.prevent="removeBird(bird)">
+                      {{$t('remove_from_list')}}
+                    </v-btn>
+                  </v-card-actions>
                 </v-card>
               </v-badge>
             </v-flex>
@@ -99,13 +108,18 @@
                       <template v-slot:activator="{ on }">
                         <v-text-field
                           v-model="participationDate"
-                          label=""
+                          label="Jour de l'observation"
                           prepend-icon="event"
                           readonly
                           v-on="on"
                         ></v-text-field>
                       </template>
-                      <v-date-picker v-model="participationDate" @input="datePickerEvent = false"></v-date-picker>
+                      <v-date-picker
+                        min="2019-05-03"
+                        max="2019-05-05"
+                        v-model="participationDate"
+                        @input="datePickerEvent = false"
+                      ></v-date-picker>
                     </v-menu>
                   </v-flex>
                   <v-flex xs12>
@@ -125,7 +139,7 @@
                       <template v-slot:activator="{ on }">
                         <v-text-field
                           v-model="participationTime"
-                          label=""
+                          label="Heure de début de l'observation"
                           prepend-icon="access_time"
                           readonly
                           v-on="on"
@@ -216,13 +230,36 @@
               </v-text-field>
             </v-flex>
             <v-flex xs12 md6>
-              <v-text-field
+              <!--<v-text-field
                 name="birthday"
                 :label="this.$t('birthday')"
                 v-model="participationBirthday"
                 v-validate="'required'"
                 :error-messages="errors.collect('birthday')">
-              </v-text-field>
+              </v-text-field>-->
+              <v-menu
+                v-model="birthdayPickerEvent"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                lazy
+                transition="scale-transition"
+                offset-y
+                full-width
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="participationBirthday"
+                    :label="$t('birthday')"
+                    readonly
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker
+                  v-model="participationBirthday"
+                  @input="birthdayPickerEvent = false"
+                ></v-date-picker>
+              </v-menu>
             </v-flex>
           </v-layout>
         </v-container>
@@ -290,13 +327,14 @@ export default {
   },
   data () {
     return {
+      metaInfo: '',
       step: 1,
       snackbar: false,
       snackbarColor: 'success',
       snackbarText: '',
+      birthdayPickerEvent: false,
       datePickerEvent: false,
       timePickerEvent: false,
-      metaInfo: '',
 
       features: [],
 
@@ -327,6 +365,9 @@ export default {
       API.getFeatures().then((data) => {
         this.features = data
       })
+    },
+    removeBird: function (bird) {
+      this.$store.commit('removeBird', bird)
     },
     postParticipation () {
       this.$validator.validate().then(result => {
@@ -361,6 +402,11 @@ export default {
           this.snackbarText = this.$t('error_on_participation')
         })
       })
+    }
+  },
+  watch: {
+    title () {
+      //
     }
   },
   computed: {
@@ -406,8 +452,9 @@ export default {
     },
     title () {
       this.metaInfo = this.$i18n.t('participate')
+      console.log(this.metaInfo)
       return this.metaInfo
-    }
+    },
   }
 }
 </script>

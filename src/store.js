@@ -31,6 +31,21 @@ const store = new Vuex.Store({
         state.birds.push(new BirdModel(bird))
       }
     },
+    removeBird(state, bird) {
+      let item = state.birds.find(function (item) {
+        return item.id === bird.id
+      })
+
+      let index = state.birds.findIndex(function (item) {
+        return item.id === bird.id
+      })
+
+      if (item && item.counter > 1) {
+        item.counter--
+      } else {
+         state.birds.splice(index, 1)
+      }
+    },
     setLanguage (state, lang) {
       state.language = lang
     },
@@ -46,29 +61,6 @@ const store = new Vuex.Store({
     setParticipationCity (state, city) {
       state.participation.city = city
     },
-
-    setParticipationName (state, name) {
-      state.participation.name = name
-    },
-    setParticipationSurname (state, surname) {
-      state.participation.surname = surname
-    },
-    setParticipationEmail (state, email) {
-      state.participation.email = email
-    },
-    setParticipationBirthday (state, birthday) {
-      state.participation.birthday = birthday
-    },
-
-    setParticipationNewsletter (state, value) {
-      state.participation.newsletter = value
-    },
-    setParticipationNewMember (state, value) {
-      state.participation.newmember = value
-    },
-    setParticipationOrder (state, value) {
-      state.participation.order = value
-    }
   },
   getters: {
     birds: state => state.birds,

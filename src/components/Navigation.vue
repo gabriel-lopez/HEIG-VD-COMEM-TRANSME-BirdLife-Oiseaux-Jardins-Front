@@ -46,7 +46,7 @@
         </v-list>
       </v-toolbar>
       <v-divider></v-divider>
-      <v-list class="pt-0" >
+      <v-list class="pt-0">
         <v-list-tile
           v-for="item in menu"
           :key="item.title"
@@ -102,7 +102,7 @@ export default {
   data () {
     return {
       menu: [
-        { icon: 'fa-house', title: 'home', link: '/' },
+        { icon: 'fa-home', title: 'home', link: '/' },
         { icon: 'fa-dove', title: 'birds', link: '/birds' },
         { icon: 'fa-graduation-cap', title: 'learn_with_zozo', link: '/game' },
         { icon: 'fa-binoculars', title: 'participate', link: '/participate' },

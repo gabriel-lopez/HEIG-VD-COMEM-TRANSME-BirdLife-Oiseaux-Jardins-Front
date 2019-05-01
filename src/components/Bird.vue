@@ -17,19 +17,26 @@
           color="white"
         ></v-progress-circular>
 
-        <v-toolbar-title>{{bird.name_fr}}</v-toolbar-title>
+        <v-toolbar-title>{{bird["name_" + currentLanguage]}}</v-toolbar-title>
 
         <v-spacer></v-spacer>
 
         <v-toolbar-items>
           <!--suppress JSUnnecessarySemicolon -->
-          <v-btn dark flat @click.prevent="addBird(bird); show = false">Ajouter à ma liste d'observations</v-btn>
+          <v-btn
+            v-if="!loading"
+            dark
+            flat
+            @click.prevent="addBird(bird); show = false">
+            {{$t('add_to_my_list')}}
+          </v-btn>
         </v-toolbar-items>
       </v-toolbar>
 
-      <v-layout row>
+      <v-layout row wrap>
         <v-flex xs12 md6>
-          <v-carousel>
+          <v-carousel
+            :cycle="false">
             <v-carousel-item
               v-for="(picture,id) in bird.pictures"
               :key="id"
@@ -37,19 +44,16 @@
               reverse-transition="fade"
               transition="fade"
             ></v-carousel-item>
+
           </v-carousel>
         </v-flex>
         <v-flex xs12 md6>
-          <p v-html="bird.description_fr"></p>
+          <v-container>
+            <p v-html="bird['description_' + currentLanguage]"></p>
+            <iframe v-if="!loading" :src="`https://www.xeno-canto.org/${bird.singing_xeno_canto_id}/embed?simple=1' scrolling='no' frameborder='0' width='340' height='115'`"></iframe>
+          </v-container>
         </v-flex>
       </v-layout>
-
-
-      <!--
-      {{bird.family}}
-      {{bird.order}}
-      -->
-      <iframe :src="`https://www.xeno-canto.org/${bird.singing_xeno_canto_id}/embed?simple=1' scrolling='no' frameborder='0' width='340' height='115'`"></iframe>
     </v-card>
   </v-dialog>
 </template>
@@ -92,6 +96,11 @@ export default {
     },
     birds () {
       return this.$store.state.birds
+    },
+    currentLanguage: {
+      get () {
+        return this.$store.state.language
+      }
     }
   },
   watch: {

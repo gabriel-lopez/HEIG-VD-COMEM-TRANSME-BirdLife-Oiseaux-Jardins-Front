@@ -1,7 +1,7 @@
 {
   "title": "Oiseaux de nos jardins",
   "menu": "Menu Principal",
-  "home": "Acceuil",
+  "home": "Accueil",
   "birds": "Oiseaux",
   "learn_with_zozo": "Apprends avec Zozo",
   "participate": "Participer",
@@ -38,7 +38,7 @@
   "birthday": "Date de naissance",
 
   "next": "Suivant",
-  "previous": "Précédant",
+  "previous": "Précédent",
   "send": "Envoyer",
   "close": "Fermer",
 
@@ -59,5 +59,11 @@
 
   "participation_newsletter" : "Oui, je souhaiterais plus d‘infos de BirdLife Suisse.",
   "participation_new_member" : "J‘aimerais devenir membre de BirdLife Suisse (Cotisation annuelle Fr. 50.– , comprend le journal «Info BirdLife Suisse»)",
-  "participation_order" : "Je commande la brochure «Action Oiseaux de nos jardins» (gratuite pour ceux qui communiquent leurs observations, ex. supplémentaires Fr. 4.–)"
+  "participation_order" : "Je commande la brochure «Action Oiseaux de nos jardins» (gratuite pour ceux qui communiquent leurs observations, ex. supplémentaires Fr. 4.–)",
+
+  "add_to_my_list": "Ajouter à ma liste d'observations",
+
+  "more_about_it": "en savoir plus",
+
+  "remove_from_list": "Effacer"
 }

@@ -36,6 +36,9 @@ export default {
   },
   mounted () {
     console.log('Game mounted')
+  },
+  destroyed: function() {
+    log('my-component destroyed');
   }
 }
 </script>

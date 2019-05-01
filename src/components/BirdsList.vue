@@ -26,8 +26,8 @@
               :label="this.$t('filter_bird_garden')"
               color="primary"
               hint=""
-              persistent-hint
-            ></v-checkbox>
+              persistent-hint>
+            </v-checkbox>
           </v-flex>
         </v-layout>
 
@@ -43,8 +43,7 @@
               item-value="id"
               v-model="ordersSelected"
               hint=""
-              persistent-hint
-            >
+              persistent-hint>
             </v-select>
           </v-flex>
         </v-layout>
@@ -61,8 +60,8 @@
               item-value="id"
               v-model="familiesSelected"
               hint=""
-              persistent-hint
-            ></v-select>
+              persistent-hint>
+            </v-select>
           </v-flex>
         </v-layout>
 
@@ -74,12 +73,12 @@
               deletable-chips
               :items="habitats"
               :label="this.$t('filter_bird_habitat')"
-              item-text="name_fr"
+              :item-text="'name_' + currentLanguage"
               item-value="id"
               v-model="habitatsSelected"
               hint=""
-              persistent-hint
-            ></v-select>
+              persistent-hint>
+            </v-select>
           </v-flex>
         </v-layout>
 
@@ -92,11 +91,10 @@
               :label="this.$t('filter_bird_plumage')"
               :items="colors"
               v-model="plumageColorsSelected"
-              item-text="name_fr"
+              :item-text="'name_' + currentLanguage"
               item-value="id"
               hint=""
-              persistent-hint
-            >
+              persistent-hint>
               <template slot="selection" slot-scope="data">
                 <v-chip
                   close
@@ -122,11 +120,10 @@
               :label="this.$t('filter_bird_legs')"
               :items="colors"
               v-model="legsColorsSelected"
-              item-text="name_fr"
+              :item-text="'name_' + currentLanguage"
               item-value="id"
               hint=""
-              persistent-hint
-            >
+              persistent-hint>
               <template slot="selection" slot-scope="data">
                 <v-chip
                   close
@@ -152,7 +149,7 @@
               :label="this.$t('filter_bird_beak_color')"
               :items="colors"
               v-model="beakColorslected"
-              item-text="name_fr"
+              :item-text="'name_' + currentLanguage"
               item-value="id"
               hint=""
               persistent-hint
@@ -182,28 +179,23 @@
               :label="this.$t('filter_bird_beak_shape')"
               :items="beakShapes"
               v-model="beakShapesSelected"
-              item-text="name_fr"
+              :item-text="'name_' + currentLanguage"
               item-value="id"
               hint=""
               persistent-hint
             >
-              <!--<template slot="item" slot-scope="data">
-                {{$eval(data, "data.item.name_")}}
-                <v-checkbox>
-
-                </v-checkbox>
-              </template> -->
               <template slot="selection" slot-scope="data">
                 <v-chip
                   close
                   @input="beakShapesSelected.splice(data.index, 1)"
                 >
+                  <!--
                   <v-avatar
                     :color="data.item.hex"
                   >
                   </v-avatar>
-
-                  {{$eval(data, "data.item.name_")}}
+                  -->
+                  {{data.item['name_' + currentLanguage]}}
                 </v-chip>
               </template>
             </v-select>
@@ -219,7 +211,7 @@
               :label="this.$t('filter_bird_size')"
               :items="sizes"
               v-model="sizesSelected"
-              item-text="name_fr"
+              :item-text="'name_' + currentLanguage"
               item-value="id"
               hint=""
               persistent-hint
