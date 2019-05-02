@@ -60,7 +60,7 @@
         step="2"
         :complete="step > 2"
         editable
-        :rules="[() => !errors.has('participation.place.npa') && !errors.has('participation.place.city')]">
+        :rules="[() => !errors.has('npa') && !errors.has('city') && !errors.has('participation_date') && !errors.has('participation_time')]">
         {{$t('place_and_date_of_my_observations')}}
         <small>{{$t('place_and_date_of_my_observations_small')}}</small>
       </v-stepper-step>
@@ -107,11 +107,14 @@
                     >
                       <template v-slot:activator="{ on }">
                         <v-text-field
+                          name="participation_date"
                           v-model="participationDate"
                           label="Jour de l'observation"
                           prepend-icon="event"
                           readonly
                           v-on="on"
+                          v-validate="'required'"
+                          :error-messages="errors.collect('participation_date')"
                         ></v-text-field>
                       </template>
                       <v-date-picker
@@ -138,11 +141,14 @@
                     >
                       <template v-slot:activator="{ on }">
                         <v-text-field
+                          name="participation_time"
                           v-model="participationTime"
                           label="Heure de début de l'observation"
                           prepend-icon="access_time"
                           readonly
                           v-on="on"
+                          v-validate="'required'"
+                          :error-messages="errors.collect('participation_time')"
                         ></v-text-field>
                       </template>
                       <v-time-picker
@@ -161,20 +167,20 @@
                 </v-flex>
                 <v-flex xs12>
                   <v-text-field
-                    name="participation.place.npa"
+                    name="npa"
                     :label="this.$t('postcode')"
                     v-model="participationNpa"
                     v-validate="'required'"
-                    :error-messages="errors.collect('participation.place.npa')">
+                    :error-messages="errors.collect('npa')">
                   </v-text-field>
                 </v-flex>
                 <v-flex xs12>
                   <v-text-field
-                    name="participation.place.city"
+                    name="city"
                     :label="this.$t('city')"
                     v-model="participationCity"
                     v-validate="'required'"
-                    :error-messages="errors.collect('participation.place.city')">
+                    :error-messages="errors.collect('city')">
                   </v-text-field>
                 </v-flex>
               </v-layout>
@@ -191,7 +197,7 @@
         step="3"
         :complete="step > 3"
         editable
-        :rules="[() => !errors.has('name') && !errors.has('email')]">
+        :rules="[() => !errors.has('name') && !errors.has('first_name') && !errors.has('email') && !errors.has('birthday')]">
         {{$t('personal_data')}}
         <small>{{$t('personal_data_small')}}</small>
       </v-stepper-step>
@@ -230,13 +236,6 @@
               </v-text-field>
             </v-flex>
             <v-flex xs12 md6>
-              <!--<v-text-field
-                name="birthday"
-                :label="this.$t('birthday')"
-                v-model="participationBirthday"
-                v-validate="'required'"
-                :error-messages="errors.collect('birthday')">
-              </v-text-field>-->
               <v-menu
                 v-model="birthdayPickerEvent"
                 :close-on-content-click="false"
@@ -249,9 +248,12 @@
               >
                 <template v-slot:activator="{ on }">
                   <v-text-field
+                    name="birthday"
+                    :error-messages="errors.collect('birthday')"
                     v-model="participationBirthday"
                     :label="$t('birthday')"
                     readonly
+                    v-validate="'required'"
                     v-on="on"
                   ></v-text-field>
                 </template>

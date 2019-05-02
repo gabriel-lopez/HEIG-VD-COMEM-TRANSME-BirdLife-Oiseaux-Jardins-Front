@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-const API_URL = 'https://oiseaux-de-nos-jardins.birdlife.ch'
-//const API_URL = 'http://localhost:8000'
+//const API_URL = 'https://oiseaux-de-nos-jardins.birdlife.ch'
+const API_URL = 'http://localhost:8000'
 
 export class API {
   static getBirds (pGarden, pOrder, pFamily, pHabitat, pPlumageColor, pLegsColor, pBeakColor, pBeakShape, pSize, pName, page = 1) {
