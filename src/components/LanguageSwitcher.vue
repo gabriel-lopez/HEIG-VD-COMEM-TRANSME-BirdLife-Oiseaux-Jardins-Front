@@ -36,8 +36,8 @@ export default {
     return {
       languages: [
         'de',
-        'fr',
-        'it'
+        'fr'
+        // 'it'
       ],
       loading: true
     }

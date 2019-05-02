@@ -66,24 +66,24 @@
           row
           wrap
           class="text-xs-center">
-          <v-flex xs-4>
+          <v-flex xs-6>
             <v-avatar
               @click="currentLanguage = 'de'">
               <img src='@/assets/flags/de.svg'>
             </v-avatar>
           </v-flex>
-          <v-flex xs-4>
+          <v-flex xs-6>
             <v-avatar
               @click="currentLanguage = 'fr'">
               <img src='@/assets/flags/fr.svg'>
             </v-avatar>
           </v-flex>
-          <v-flex xs-4>
+          <!--<v-flex xs-4>
             <v-avatar
               @click="currentLanguage = 'it'">
               <img src='@/assets/flags/it.svg'>
             </v-avatar>
-          </v-flex>
+          </v-flex>-->
         </v-layout>
       </v-list >
       <v-spacer></v-spacer>

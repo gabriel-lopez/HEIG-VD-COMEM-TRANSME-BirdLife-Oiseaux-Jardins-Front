@@ -27,7 +27,7 @@
             v-if="!loading"
             dark
             flat
-            @click.prevent="addBird(bird); show = false">
+            @click.prevent="addBird(bird); snackbar = true">
             {{$t('add_to_my_list')}}
           </v-btn>
         </v-toolbar-items>
@@ -55,6 +55,22 @@
         </v-flex>
       </v-layout>
     </v-card>
+    <v-snackbar
+      v-model="snackbar"
+      color="success"
+      :timeout="3000"
+      vertical
+    >
+      {{$t('added_to_list')}}
+      <v-btn
+        dark
+        flat
+        to="/participate"
+        @click="snackbar = false; show = false;"
+      >
+        {{$t('see_my_list')}}
+        </v-btn>
+    </v-snackbar>
   </v-dialog>
 </template>
 
@@ -67,7 +83,8 @@ export default {
   data () {
     return {
       bird: {},
-      loading: true
+      loading: true,
+      snackbar: false
     }
   },
   methods: {

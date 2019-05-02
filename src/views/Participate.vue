@@ -19,7 +19,12 @@
         <v-container
           grid-list-lg>
           <v-layout row wrap>
-            <v-flex xs6 sm3 lg2 v-for="bird in birds" :key="bird.id">
+            <p
+              v-if="birds.length === 0">
+              {{$t('empty_list')}}
+            </p>
+
+            <v-flex xs12 sm6 lg4 v-for="bird in birds" :key="bird.id">
               <v-badge right overlap>
                 <template v-slot:badge>
                   <span>{{bird.counter}}</span>
@@ -46,13 +51,21 @@
                       @click.prevent="removeBird(bird)">
                       {{$t('remove_from_list')}}
                     </v-btn>
+                    <v-btn
+                      flat
+                      color="primary"
+                      @click.prevent="addBird(bird)">
+                      {{$t('add_one_more')}}
+                    </v-btn>
                   </v-card-actions>
                 </v-card>
               </v-badge>
             </v-flex>
           </v-layout>
         </v-container>
-
+        <router-link to="/birds">
+          <v-btn flat>{{ $t('add_a_bird') }}</v-btn>
+        </router-link>
         <v-btn color="primary" @click="step = 2">{{ $t('next') }}</v-btn>
       </v-stepper-content>
 
@@ -78,9 +91,10 @@
               <v-layout row wrap>
                 <v-flex xs12 md6>
                   <v-checkbox
-                    v-for="feature in features" :key="features.id"
+                    v-for="(feature, index) in features" :key="feature.id"
                     color="primary"
                     hide-details
+                    v-model="features['' + index]['checked']"
                     :label="feature['name_' + currentLanguage]">
                   </v-checkbox>
                 </v-flex>
@@ -109,7 +123,7 @@
                         <v-text-field
                           name="participation_date"
                           v-model="participationDate"
-                          label="Jour de l'observation"
+                          :label="$t('day_of_observation')"
                           prepend-icon="event"
                           readonly
                           v-on="on"
@@ -143,7 +157,7 @@
                         <v-text-field
                           name="participation_time"
                           v-model="participationTime"
-                          label="Heure de début de l'observation"
+                          :label="$t('start_time_of_the_observation')"
                           prepend-icon="access_time"
                           readonly
                           v-on="on"
@@ -294,7 +308,12 @@
         </v-container>
         <div>
           <v-btn flat @click="step = 3">{{$t('previous')}}</v-btn>
-          <v-btn color="primary" @click="submit">{{$t('send')}}</v-btn>
+          <v-btn
+            color="primary"
+            @click="submit"
+            :loading="loading">
+            {{$t('send')}}
+          </v-btn>
         </div>
       </v-stepper-content>
     </v-stepper>
@@ -329,6 +348,8 @@ export default {
   },
   data () {
     return {
+      loading: false,
+
       metaInfo: '',
       step: 1,
       snackbar: false,
@@ -350,9 +371,9 @@ export default {
       participationUserNpa: '',
       participationUserCity: '',
 
-      participationNewsletter: '',
-      participationNewMember: '',
-      participationOrder: ''
+      participationNewsletter: false,
+      participationNewMember: false,
+      participationOrder: false
     }
   },
   mounted () {
@@ -368,12 +389,20 @@ export default {
         this.features = data
       })
     },
+    addBird: function (bird) {
+      this.$store.commit('addBird', bird)
+    },
     removeBird: function (bird) {
       this.$store.commit('removeBird', bird)
     },
     postParticipation () {
+      this.loading = true
       this.$validator.validate().then(result => {
         if (!result) {
+          this.loading = false
+          this.snackbarColor = 'error'
+          this.snackbar = true
+          this.snackbarText = this.$t('error_on_participation')
           return
         }
         API.postParticipation(
@@ -383,7 +412,7 @@ export default {
           this.participationTime,
           this.participationNpa,
           this.participationCity,
-          null,
+          this.features,
 
           this.participationName,
           this.participationSurname,
@@ -395,15 +424,33 @@ export default {
           this.participationOrder
 
         ).then(() => {
+          this.loading = false
           this.snackbarColor = 'success'
           this.snackbar = true
           this.snackbarText = this.$t('thank_you_for_your_participation')
+          this.reset()
         }).catch(() => {
+          this.loading = false
           this.snackbarColor = 'error'
           this.snackbar = true
           this.snackbarText = this.$t('error_on_participation')
         })
       })
+    },
+    reset () {
+      this.participationName = ''
+      this.participationSurname = ''
+      this.participationEmail = ''
+      this.participationBirthday = ''
+
+      this.participationUserStreet = ''
+      this.participationUserstreetNo = ''
+      this.participationUserNpa = ''
+      this.participationUserCity = ''
+
+      this.participationNewsletter = false
+      this.participationNewMember = false
+      this.participationOrder = false
     }
   },
   watch: {
@@ -456,7 +503,7 @@ export default {
       this.metaInfo = this.$i18n.t('participate')
       console.log(this.metaInfo)
       return this.metaInfo
-    },
+    }
   }
 }
 </script>

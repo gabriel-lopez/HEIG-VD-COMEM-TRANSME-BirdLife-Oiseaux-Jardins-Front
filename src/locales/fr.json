@@ -1,37 +1,58 @@
 {
   "title": "Oiseaux de nos jardins",
+  "slogan": "Une heure pour la biodiversité",
   "menu": "Menu Principal",
   "home": "Accueil",
   "birds": "Oiseaux",
   "learn_with_zozo": "Apprends avec Zozo",
   "participate": "Participer",
   "about_us": "Qui sommes-nous ?",
-
   "social_networks": "Rejoignez-nous sur les réseaux sociaux !",
 
+  "home_action_line_1": "Quel est l’oiseau qui te réveille tous les matins? Combien d’espèces nichent autour de chez toi? Grâce à l’action “Oiseaux de nos jardins”, tu peux te poser une heure dans ton jardin ou dans un parc proche de chez toi et observer les oiseaux.",
+  "home_action_line_2": "Une heure de ton temps pour la biodiversité, c’est pour nous des données précieuses. En 2017, les participants ont observé plus de 35’000 oiseaux de 127 espèces différentes. Alors pour cette année, grâce à toi on peut en observer encore plus!",
+  "home_action_line_3": "Pour <a href=\"#/participate\">participer</a>, rien de plus simple. Il te suffit de trouver un endroit tranquille dans ton jardin ou pas trop loin de chez toi et d’<a href=\"#/birds\">observer et noter</a>  les oiseaux que tu aperçois.",
+  "home_action_line_4": "L’action “Oiseaux de nos jardins” se déroule chaque année dans toute la Suisse. Elle a pour objectif de mieux protéger les oiseaux et la biodiversité. Depuis sa création en 2015, BirdLife Suisse a ainsi pu récolter de précieuses informations.",
+
+  "home_birdlife_line_1": "<span class=\"primary--text big\">Depuis 1922</span>, BirdLife Suisse œuvre sur le territoire helvétique pour le bien être des oiseaux et de la biodiversité.",
+  "home_birdlife_line_2": "<span class=\"primary--text big\">Depuis 1922</span>, BirdLife Suisse s’engage au niveau local et soutient des projets de protection de la nature dans le monde entier.",
+  "home_birdlife_line_3": "<span class=\"primary--text big\">Depuis 1922</span>, BirdLife Suisse sensibilise à la fragilité de la biodiversité et des oiseaux.",
+  "home_birdlife_line_4": "<span class=\"primary--text big\">Depuis 1922</span>, BirdLife Suisse vit grâce aux <a href=\"https://birdlife.ch/fr/content/dons-legs\">dons</a> et aux soutiens de ses <a href=\"https://birdlife.ch/fr/content/membre\">membres </a> . Si tu veux agir, n’hésite pas!",
+
+  "about_us_line_1": "Depuis 1922, BirdLife Suisse œuvre sur le territoire helvétique pour le bien être des oiseaux et de la biodiversité.",
+  "about_us_line_2": "Elle s’engage au niveau local et soutient des projets de protection de la nature dans le monde entier.",
+  "about_us_line_3": "Cette association vit grâce aux <a href=\"https://www.birdlife.ch/fr/content/dons-legs\" target=\"_blank\">dons</a> et aux soutiens de ses <a href=\"https://birdlife.ch/fr/content/membre\" target=\"_blank\">membres</a>. Si tu veux agir, n’hésite pas!",
+  "about_us_line_4": "BirdLife est une organisation non gouvernementale. Nous tenons à remercier les nombreux membres et donateurs, sans qui la réalisation de ses projets n’aurait pas été possible. Grâce à leurs dons, ils permettent à BirdLife de s’engager pour la biodiversité et les oiseaux.",
+  "about_us_line_5": "Le Troglodyte Mignon, la pomme Gala et l’Homo Sapiens ont tous un point commun: nous faisons en sorte qu’ils vivent ensemble et en harmonie.",
+  "about_us_line_6": "Pour te donner une idée concrète du travail réalisé, voici quelques projets qui symbolisent un engagement de tous les instants:",
+
+  "about_us_know_better": "Mieux nous connaître",
+  "about_us_card1_title": "Centre-nature",
+  "about_us_card1_text": "Le Centre-nature BirdLife de la Sauge aux abords de la rive sud-est du lac de Neuchâtel est un vrai petit paradis pour les oiseaux. Ainsi, depuis sa création, plus de 200 espèces y ont été aperçues!",
+  "about_us_card2_title": "Conservation des espèces",
+  "about_us_card2_text": "Le projet de conservation des espèces des milieux cultivés du Grand-Marais vise à favoriser 5 espèces menacées en Suisse qui nichent encore dans la région. L’habitat de chacune de ces 5 espèces est valorisé par la création de surfaces de promotion de la biodiversité en collaboration avec les agriculteurs, par l’entretien des haies et des surfaces de renaturation et par bien d’autres mesures encore.",
+  "about_us_card3_title": "Travail politique",
+  "about_us_card3_text": "BirdLife Suisse s’engage également au niveau politique. Aux côtés d’autres organisations environnementales, nous avons lancé une initiative double biodiversité et paysage.",
+
+  "about_us_card_more_about_it": "en savoir plus",
+
   "my_observations": "Mes observations",
-  "my_observations_small": "La liste des oiseaux que vous avez observé",
+  "my_observations_small": "La liste des oiseaux que vous avez observés",
   "place_and_date_of_my_observations": "Lieu et date de mes observations",
   "place_and_date_of_my_observations_small": "Merci d’entrer les informations à propos de votre lieu d’observation",
   "personal_data": "Données personnelles",
   "personal_data_small": "Merci d’entrer vos informations personnelles",
-  "subscribe_to_the_newsletter": "Inscription à la Newsletter",
+  "subscribe_to_the_newsletter": "Aimeriez-vous en savoir davantage ?\n",
   "subscribe_to_the_newsletter_small": "",
-
   "thank_you_for_your_participation": "Merci de votre participation !",
   "error_on_participation": "Merci de verifier les données du formulaires !",
-
   "on_my_observation_site_there_are_many": "Sur mon lieu d'observation, il y a beaucoup de",
-
   "i_observed_for_1_hour_the": "J'ai observé durant 1 heure le",
-
   "day_of_observation": "Jour de l'observation",
   "start_time_of_the_observation": "Heure de début de l'observation",
-
   "place_of_observation": "Lieu d'observation",
   "postcode": "NPA",
   "city": "Ville",
-
   "name": "Nom",
   "first_name": "Prénom",
   "email": "E-Mail",
@@ -62,8 +83,10 @@
   "participation_order" : "Je commande la brochure «Action Oiseaux de nos jardins» (gratuite pour ceux qui communiquent leurs observations, ex. supplémentaires Fr. 4.–)",
 
   "add_to_my_list": "Ajouter à ma liste d'observations",
-
-  "more_about_it": "en savoir plus",
-
-  "remove_from_list": "Effacer"
+  "added_to_list": "Oiseau correctement ajouté à votre liste !",
+  "see_my_list": "Voir ma liste",
+  "remove_from_list": "effacer (-1)",
+  "add_one_more": "ajouter (+1)",
+  "add_a_bird": "ajouter un oiseau",
+  "empty_list": "Vous n'avez pas encore ajouté d'oiseaux à votre liste d'observation."
 }

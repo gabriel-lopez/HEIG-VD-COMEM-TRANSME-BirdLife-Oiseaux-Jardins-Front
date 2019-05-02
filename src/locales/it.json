@@ -1,15 +1,9 @@
 {
   "title": "Uccelli dei nostri giardini",
+  "home": "Pagina iniziale",
   "menu": "Menu principale",
   "birds": "Uccelli",
   "learn_with_zozo": "Imparare con Zozo",
   "participate": "Partecipare",
-  "about_us": "Chi siamo",
-
-  "social_networks": "",
-
-  "my_observations": "",
-  "place_and_date_of_my_observations": "",
-
-  "next": "Prossimo"
+  "about_us": "Chi siamo"
 }
